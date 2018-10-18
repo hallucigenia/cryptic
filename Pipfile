@@ -29,6 +29,7 @@ SQLAlchemy = "==1.2.11"
 Werkzeug = "==0.14.1"
 python-dotenv = "*"
 bootstrap-flask = "*"
+flask-ckeditor = "*"
 
 [dev-packages]
 
