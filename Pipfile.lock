@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "6408bfa975aba37a8641a2bb5808d1ab7dddb4d4c36e2f960df4d2ac37796f5b"
+            "sha256": "29a3332de76a880d4d8cf5b16108e3031921d273ef9a8cd5c5dd0c8dc0dc98e7"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -30,6 +30,14 @@
             ],
             "index": "pypi",
             "version": "==1.4"
+        },
+        "bootstrap-flask": {
+            "hashes": [
+                "sha256:402523733d8b68a77527c64d112619f59893143917309ea60bde525e41021cd7",
+                "sha256:49a8d10aa949ebe859113db7b855b5146e5e8e8cd74f7db3e3306bec50ee806c"
+            ],
+            "index": "pypi",
+            "version": "==1.0.8"
         },
         "click": {
             "hashes": [
@@ -143,6 +151,14 @@
             ],
             "index": "pypi",
             "version": "==2.7.3"
+        },
+        "python-dotenv": {
+            "hashes": [
+                "sha256:122290a38ece9fe4f162dc7c95cae3357b983505830a154d3c98ef7f6c6cea77",
+                "sha256:4a205787bc829233de2a823aa328e44fd9996fedb954989a21f1fc67c13d7a77"
+            ],
+            "index": "pypi",
+            "version": "==0.9.1"
         },
         "python-editor": {
             "hashes": [

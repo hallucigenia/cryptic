@@ -27,6 +27,8 @@ Mako = "==1.0.7"
 MarkupSafe = "==1.0"
 SQLAlchemy = "==1.2.11"
 Werkzeug = "==0.14.1"
+python-dotenv = "*"
+bootstrap-flask = "*"
 
 [dev-packages]
 
