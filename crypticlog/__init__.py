@@ -5,6 +5,7 @@ from flask import Falsk
 
 from crypticlog.settings import config
 from crypticlog.blueprints.auth import auth_bp
+from crypticlog.models import Admin, Category
 
 def create_app(config_name=None):
     if config_name is None:
@@ -43,7 +44,11 @@ def register_shell_context(app):
         return dict(db=db)
 
 def register_template_context(app):
-    pass
+    @app.context_processor
+    def make_template_context():
+        admin = Admin.query.first()
+        categories = Category.query.order_by(Category.name).all()
+        return dict(admin=admin, categories=categories)
 
 def register_errors(app):
     @app.errorhandler(400)
