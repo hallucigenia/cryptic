@@ -30,6 +30,7 @@ Werkzeug = "==0.14.1"
 python-dotenv = "*"
 bootstrap-flask = "*"
 flask-ckeditor = "*"
+hues = "*"
 
 [dev-packages]
 

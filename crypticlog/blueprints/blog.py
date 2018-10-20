@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
 __author__ = 'fansly'
 
-from flask import render_template, Blueprint
+from flask import render_template, Blueprint, request
 
 blog_bp = Blueprint('blog', __name__)
 
 @blog_bp.route('/')
 def index():
-    return render_template('blog/index.html')
+    page = request.args.get('page', 1, type=int) #git current page during searching string
+    per_page = current_app.config['CRYPTICLOG_POST_PER_PAGE'] # page count
+    pagination = Post.query.order_by(Post.timestamp.desc()).paginate(page, per_page=per_page) # paging objects
+    posts = pagination.items # current page's record list
+    return render_template('blog/index.html', pagination=pagination, posts=posts)
 
 @blog_bp.route('/about')
 def about():
@@ -19,4 +23,5 @@ def show_category(category_id):
 
 @blog_bp.route('/post/<int:post_id>', methods=['GET', 'POST'])
 def show_post(post_id):
-    return render_template('blog/post.html')
+    post = Post.query.get_or_404(post_id)
+    return render_template('blog/post.html', post=post)
