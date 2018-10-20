@@ -32,7 +32,53 @@
             </div> 
         </div>
         <div class="comments" id="comments">
-       ...
+            <h3>{{ comments|length }} Comments 
+                <small>
+                    <a href="{{ url_for('.show_post', post_id=post.id, page=pagination.pages or 1) }}#comments" }}
+                        latest</a>
+                </small>
+            </h3>
+            {% if comments %}
+                <ul class="list-group">
+                    {% for comment in comments %}
+                        <li class="list-group-item list-group-item-action flex-column">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">
+                                    <a href="{% if comment.site %}{{ comment.site }}{% else %}#{% endif %}" 
+                                       target="_blank">
+                                        {% if comment.from_admin %}
+                                            {{ admin.name }}
+                                        {% else %}
+                                            {{ comment.author }}
+                                        {% endif %}
+                                    </a>
+                                    {% if comment.from_admin %}
+                                        <span class="badge badge-primary">Author</span>{% endif %}
+                                    {% if comment.replied %}<span class="badge badge-light">Reply</span>{% endif %}
+                                </h5>
+                                <small data-toggle="tooltip" data-placement="top" data-delag="500"
+                                       data-timestamp="{{ comment.timestamp.strftime('%Y-%m-%dT%H:%M:%SZ') }}">
+                                    {{ moment(comment.timestamp).fromNow() }}
+                                </small>
+                            </div>
+                            {% if comment.replied %}
+                                <p class="alert alert-dark reply-body">{{ comment.replied.author }}:
+                                    <br>{{ comment.replied.body }}
+                                </p>
+                            {% endif %}
+                            <p class="mb-1">{{ comment.body }}</p>
+                                <div class="float-right">
+                                <a class="btn btn-light btn-sm" href="{{ url_for('.reply_comment', comment_id=comment.id) }}">Reply</a>
+                        </li>
+                        {% endfor %}
+                </ul>
+            {% else %}
+                <div class="tip"><h5>No comments.</h5></div>
+            {% endif %}
+        </div>
+        {% if comments %}
+            {{ render_pagination(pagination, fragment='#comments') }}
+        {% endif %}        
     </div>
     <div class="col-sm-4 sidebar">
         {% include "blog/_sidebar.html" %}

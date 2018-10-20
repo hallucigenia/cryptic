@@ -29,4 +29,8 @@ def show_category(category_id):
 @blog_bp.route('/post/<int:post_id>', methods=['GET', 'POST'])
 def show_post(post_id):
     post = Post.query.get_or_404(post_id)
-    return render_template('blog/post.html', post=post)
+    page = request.args.get('page', 1, type=int)
+    per_page = current_app.config['CRYPTICLOG_COMMENT_PER_PAGE']
+    pagination = Comment.query.with_parent(post).order_by(Comment.timestamp.asc()).paginate(page, per_page)
+    comments = pagination.items
+    return render_template('blog/post.html', post=post, pagination=pagination, comments=comments)
