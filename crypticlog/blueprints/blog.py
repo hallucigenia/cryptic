@@ -5,7 +5,7 @@ from flask import render_template, Blueprint, request
 
 from crypticlog.models import Comment
 from crypticlog.forms import AdminCommentForm, CommentForm
-from crypticlog.emails import send_new_comment_email
+from crypticlog.emails import send_new_comment_email, send_new_reply_email
 
 blog_bp = Blueprint('blog', __name__)
 
@@ -58,6 +58,11 @@ def show_post(post_id):
         comment = Comment(
             author=author, email=email, site=site, body=body,
             from_admin=from_admin, post=post, reviewed=reviewed)
+        replied_id = request.args.get('reply')
+        if replied_id: # if 'reply'exist in URL, that mains reply
+            replied_comment = Comment.query.get_or_404(replied_id)
+            comment.replied = replied_comment
+            send_new_reply_email(replied_comment) # send email to replyed user
         db.session.add(comment)
         db.session.commit()
         if current_user.is_authenticated: #show different alarm according to different login status
