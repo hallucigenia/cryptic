@@ -31,6 +31,7 @@ python-dotenv = "*"
 bootstrap-flask = "*"
 flask-ckeditor = "*"
 hues = "*"
+flask-login = "*"
 
 [dev-packages]
 

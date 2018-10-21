@@ -12,3 +12,10 @@ db = SQLAlchemy()
 moment = Moment()
 ckeditor = CKEditor()
 mail = Mail()
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    from Crypticlog.models import Admin
+    user = Admin.query.get(int(user_id))
+    return user

@@ -1,7 +1,8 @@
 # -*- coding=utf-8 -*-
 __author = 'fansly'
 
-from flask import Falsk
+from flask import Flask
+from flask_wtf.csrf import CSRFError
 
 from crypticlog.settings import config
 from crypticlog.blueprints.auth import auth_bp
@@ -57,7 +58,7 @@ def register_errors(app):
 
     @app.errorhandler(404)
     def page_not_found(e):
-        return render_template('errors/404.html'), 400
+        return render_template('errors/404.html'), 404
 
     @app.errorhandler(500)
     def internal_server_error(e):

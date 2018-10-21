@@ -2,6 +2,12 @@
 __author__ = 'fansly'
 
 from flask import Blueprint
+from flask_login import login_user
+
+from crypticlog.models import Admin
+from crypticlog.forms import LoginForm
+from crypticlog.utils import redirect_back
+
 
 auth_bp = Blueprint('auth', __name__)
 
@@ -17,8 +23,9 @@ def login():
         remember = form.remember.data
         admin = Admin.query.first()
         if admin:
+            # verify username and password
             if username == admin.username and admin.calidate_password(password):
-                login_user(admin, remember)
+                login_user(admin, remember) # login user
                 flash('Welcome back.', info')
                 return redirect_back()
             flash('Invalid username or password.', 'warning')
