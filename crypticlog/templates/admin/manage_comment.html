@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% 'bootstrap/pagination.html' import render_pagination %}
+
+{% block title %}Manage Comments{% endblock %}
+
+{% for comment in comments %}
+    <tr {% if not comment.reviewed %}class="table-warning" {% endif %}>
+    ...
+        <td>
+            {% if not comment.reviewed %}
+            <form class="inline" method="post" action="{{ url_for('.approve_comment', comment_id=comment.id, next=request.full_path) }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <button type="submit" class="btn btn-success btn-sm">Approve</button>
+            </form>
+           {% endif %}
+           ...
+        </td>
+    </tr>
+    {% endfor %}
+</table>

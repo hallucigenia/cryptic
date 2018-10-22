@@ -54,3 +54,26 @@ def delete_post(post_id):
     db.session.commit()
     flash('Post deleted.', 'success')
     return redirect_back()
+
+@admin_bp.route('/set-comment/<int:post_id>')
+@login_required
+def set_comment(post_id):
+    post = Post.query.get_or_404(post_id)
+    if post.can_comment:
+        post.can_comment = False
+        flash('Comment disabled.', 'info')
+    else:
+        post.can_comment = True
+        flash('Comment enabled.', 'info')
+    db.session.commit()
+    return redirect(url_for('.show_post', post_id=post_id))
+
+@admin_bp.route('/comment/<int:comment_id>/approve')
+@login_required
+def approve_comment(comment_id):
+    comment = Comment.query.get_or_404(comment_id)
+    comment.reviewed =True
+    db.session.commit()
+    flash('Comment published.', 'success')
+    return redirect_back()
+
