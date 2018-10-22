@@ -1,9 +1,12 @@
 # -*- coding: utf-8 -*-
 __author__ = 'fansly'
 
-from faker import import Faker
+import random
 
-from crypticlog.models import Admin, Category, Post, Comment
+from faker import Faker
+from sqlalchemy.exc import IntegrityError
+
+from crypticlog.models import Admin, Category, Post, Comment, Link
 from crypticlog.extensions import db
 
 fake = Faker()
@@ -21,7 +24,6 @@ def fake_admin():
     db.session.commit()
 
 def fake_categories(count=10):
-
     category = Category(name='Default')
     db.session.add(category)
 
@@ -100,3 +102,8 @@ def fake_comments(count=500):
         db.session.add(comment)
     db.session.commit()
 
+def fake_links():
+    twitter = Link(name='Twitter', url='#')
+    google = Link(name='Google+', url='#')
+    db.session.add_all([twitter, google])
+    db.session.commit()
