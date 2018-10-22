@@ -32,6 +32,7 @@ bootstrap-flask = "*"
 flask-ckeditor = "*"
 hues = "*"
 flask-login = "*"
+flask-admin = "*"
 
 [dev-packages]
 

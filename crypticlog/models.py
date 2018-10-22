@@ -14,8 +14,18 @@ class Admin(db.Model):
     about = db.Column(db.Text)
 
 class Category(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(30), unique=True)
 
     posts = db.relationship('Post', back_populates='category')
+
+    def delete(self):
+        default_category = Category.query.get(1)
+        posts = self.posts[:]
+        for post in posts:
+            post.category = default_category
+        db.session.delete(self)
+        db.session.commit()
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
