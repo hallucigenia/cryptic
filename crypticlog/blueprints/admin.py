@@ -1,9 +1,34 @@
 # -*- coding: utf-8 -*-
 __author__ = 'fansly'
 
-from crypticlog.forms import PostForm
-from crypticlog.models import Post, Category
+from flask import render_template, flash, redirect, url_for, request, current_app, Blueprint
+from flask_login import login_required, current_user
+
+from crypticlog.forms import SettingForm, CategoryForm, LinkForm, PostForm
+from crypticlog.models import Post, Comment, Link, Category
 from crypticlog.utils import redirect_back
+from crypticlog.extensions import db
+
+admin_bp = Blueprint('admin', __name__)
+
+@admin_bp.route('/settings', methods=['GET', 'POST'])
+@login_required
+def settings():
+    form = SettingForm()
+    if form.validate_on_submit():
+        current_user.name = form.name.data
+        current_user.blog_title = form.blog_title.data
+        current_user.blog_sub_title = form.blog_sub_title.data
+        current_user.about = form.about.data
+        db.session.commit()
+        flash('Setting updated.', 'success')
+        return redirect(url_for('blog.index'))
+    form.name.data = current_user.name
+    form.blog_title.data = current_user.blog_title
+    form.blog_sub_title.data = current_user.blog_sub_title
+    form.about.data = current_user.about
+    return render_template('admin/settings.html', form=form)
+
 
 @admin_bp.route('/post/manage')
 @login_required
@@ -23,6 +48,9 @@ def new_post():
         body = form.body.data
         category = Category.query.get(form.category.data)
         post = Post(title=title, body=body, category=category)
+        # same with:
+        # category_id = form.category.data
+        # post = Post(title, body=body, category_id=category_id)
         db.session.add(post)
         db.session.commit()
         flash('Post created.', 'success')
@@ -66,7 +94,7 @@ def set_comment(post_id):
         post.can_comment = True
         flash('Comment enabled.', 'info')
     db.session.commit()
-    return redirect(url_for('.show_post', post_id=post_id))
+    return redirect_back()
 
 @admin_bp.route('/comment/manage')
 @login_required
@@ -85,7 +113,7 @@ def manage_comment():
     comments = pagination.items
     return render_template('admin/manage_comment.html', comments=comments, pagination=pagination)
 
-@admin_bp.route('/comment/<int:comment_id>/approve')
+@admin_bp.route('/comment/<int:comment_id>/approve', methods=['POST'])
 @login_required
 def approve_comment(comment_id):
     comment = Comment.query.get_or_404(comment_id)
@@ -93,6 +121,51 @@ def approve_comment(comment_id):
     db.session.commit()
     flash('Comment published.', 'success')
     return redirect_back()
+
+@admin_bp.route('/comment/<int:comment_id>/delete', methods=['POST']
+@login_required
+def delete_comment(comment_id):
+    comment = Comment.query.get_or_404(comment_id)
+    db.session.delete(comment)
+    db.session.commit()
+    flash('Comment deleted.', 'success')
+    return redirect_back()
+
+@admin_bp.route('/category/manage')
+@login_required
+def manage_category():
+    return render_template('admin/manage_category.html')
+
+@admin_bp.route('/category/new', methods=['GET', 'POST']
+@login_required
+def new_category():
+    form = CategoryForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        category = Category(name=name)
+        db.session.add(category)
+        db.session.commit()
+        flash('Category created.', 'success')
+        return redirect(url_for('.manage_category'))
+    return render_template('admin/new_category.html', form=form)
+
+@admin_bp.route('/category/<int:category_id>/edit', methods=['GET', 'POST'])
+@login_required
+def edit_category(category_id):
+    form = CategoryForm()
+    category = Category.query.get_or_404(category_id)
+    if category.id == 1:
+        flash('You can not edit the default category.', 'warning')
+        return redirect(url_for('blog.index'))
+    if form.validate_on_submit():
+        category.name = form.name.data
+        db.session.commit()
+        flash('Category updated.', 'success')
+        return redirect(url_for('.manage_category'))
+
+    form.name.data = category.nam
+    return render_template('admin/edit_category.html', form=form)
+
 
 @admin_bp.route('/category/<int:category_id>/delete', methods=['POST'])
 @login_required
@@ -104,3 +177,47 @@ def delete_category(category_id):
     category.delete()
     flash('Category deleted.', 'success')
     return redirect(url_for('.manage_category'))
+
+@admin_bp.route('/link/manage')
+@login_required
+def manage_link():
+    return render_template('admin/manage_link.html')
+
+@admin_bp.route('/link/new', methods=['GET', 'POST'])
+@login_required
+def new_link():
+    form = LinkForm()
+    if form.validate_on_submit():
+        name = form.name.data
+        url = form.url.data
+        link = Link(name=name, url=url)
+        db.session.add(link)
+        db.session.commit()
+        flash('Link created.', 'success')
+        return redirect(url_for('.manage_link'))
+    return render_template('admin/new_link.html', form=form)
+
+@admin_bp.route('/link/<int:link_id>edit', methods=['GET', 'POST'])
+@login_required
+def edit_link(link_id):
+    form = LinkForm()
+    link = Link.query.get_of_404(link_id)
+    if form.valodate_on_submit():
+        link.name = form.name.data
+        link.url = form.url.data
+        db.session.commit()
+        flash('Link updated.', 'success')
+        return redirect(url_for('manage_link'))
+    form.name.data = link.name
+    form.url.data = link.url
+    return render_template('admin/edit_link.html', form=form)
+
+@admin_bp.route('/link/<int:link_id>/delete', methods=['POST'])
+@login_required
+def delete_link(link_id):
+    link = Link.query.get_or_404(link_id)
+    db.session.delete(link)
+    db.session.commit()
+    flash('Link deleted.', 'success')
+    return redirect(url_for('.manage_link'))
+

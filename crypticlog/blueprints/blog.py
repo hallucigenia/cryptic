@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 __author__ = 'fansly'
 
-from flask import render_template, Blueprint, request, abort, make_response
+from flask import render_template, Blueprint, request, abort, make_response, flash, redirect, url_for, current_app
+from flask_login import current_user
 
-from crypticlog.models import Comment
+from crypticlog.models import Comment, Post, Category
+from crypticlog.extensions import db
 from crypticlog.forms import AdminCommentForm, CommentForm
 from crypticlog.emails import send_new_comment_email, send_new_reply_email
 from crypticlog.utils import redirect_back
@@ -77,6 +79,9 @@ def show_post(post_id):
 @blog_bp.route('/reply/comment/<int:comment_id>')
 def reply_comment(comment_id):
     comment = Comment.query.get_or_404(comment_id)
+    if not comment.post.can_comment:
+        flash('Comment is disabled.', 'warning')
+        return redirect(url_for('.show_post', post_id=comment.post.id))
     return redirect(url_for('.show_post', post_id=comment.post_id, reply=comment_id, author=comment.author) + '#comment-form')
 
 @blog_bp.route('/change-theme/<theme_name>')

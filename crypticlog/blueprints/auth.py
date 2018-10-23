@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
 __author__ = 'fansly'
 
-from flask import Blueprint
-from flask_login import login_user
+from flask import Blueprint, render_template, flash, redirect, url_for
+from flask_login import login_user, logout_user, login_required, current_user
 
 from crypticlog.models import Admin
 from crypticlog.forms import LoginForm
 from crypticlog.utils import redirect_back
-
 
 auth_bp = Blueprint('auth', __name__)
 
