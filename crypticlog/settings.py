@@ -15,7 +15,7 @@ else:
 
 
 class BaseConfig(object):
-    SECRET_KEY = os.getenv('SECRET_KEY', 'secret string')
+    SECRET_KEY = os.getenv('SECRET_KEY', 'dev key')
 
     DEBUG_TB_INTERCEPT_REDIRECTS = False
 
@@ -47,9 +47,9 @@ class TestingConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'  # in-memory database
 
 class ProductionConfig(BaseConfig):
-SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', prefix + os.path.join(basedir, 'data.db'))
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', prefix + os.path.join(basedir, 'data.db'))
 
-congfig = {
+config = {
     'development': DevelopmentConfig,
     'testing': TestingConfig,
     'production': ProductionConfig

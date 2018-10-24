@@ -43,7 +43,7 @@ def register_logging(app):
 
         def format(self, record):
             record.url = request.url
-            record.romote_addr = request.remote_addr
+            record.remote_addr = request.remote_addr
             return super(RequestFormatter, self).format(record)
 
     request_formatter = RequestFormatter(
@@ -124,7 +124,7 @@ def register_errors(app):
 
 
 def register_commands(app):
-    @app.cli.commend()
+    @app.cli.command()
     @click.option('--drop', is_flag=True, help='Create after drop.')
     def initdb(drop):
         """Initialize the database."""

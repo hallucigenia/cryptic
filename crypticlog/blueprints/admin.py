@@ -34,10 +34,10 @@ def settings():
 @login_required
 def manage_post():
     page = request.args.get('page', 1, type=int)
-    pagination = Post.query.order_by(Post.timestamp.desc()).panginate(
+    pagination = Post.query.order_by(Post.timestamp.desc()).paginate(
         page, per_page=current_app.config['CRYPTICLOG_MANAGE_POST_PER_PAGE'])
     posts = pagination.items
-    return render_template('admin/manage_post.html', pagination=pagination, posts=posts)
+    return render_template('admin/manage_post.html', page=page, pagination=pagination, posts=posts)
 
 @admin_bp.route('/post/new', methods=['GET', 'POST'])
 @login_required
@@ -50,11 +50,11 @@ def new_post():
         post = Post(title=title, body=body, category=category)
         # same with:
         # category_id = form.category.data
-        # post = Post(title, body=body, category_id=category_id)
+        # post = Post(title=title, body=body, category_id=category_id)
         db.session.add(post)
         db.session.commit()
         flash('Post created.', 'success')
-        return redirect(url_for('.show_post', post_id=post.id))
+        return redirect(url_for('blog.show_post', post_id=post.id))
     return render_template('admin/new_post.html', form=form)
 
 @admin_bp.route('/post/<int:post_id>/edit', methods=['GET', 'POST'])
@@ -65,10 +65,10 @@ def edit_post(post_id):
     if form.validate_on_submit():
         post.title = form.title.data
         post.body = form.body.data
-        post.category =  Category.query.get(form.category.data)
+        post.category = Category.query.get(form.category.data)
         db.session.commit()
         flash('Post updated.', 'success')
-        return redirect(url_for('.show_post', post_id=post.id))
+        return redirect(url_for('blog.show_post', post_id=post.id))
     form.title.data = post.title
     form.body.data = post.body
     form.category.data = post.category_id
@@ -91,17 +91,17 @@ def set_comment(post_id):
     post = Post.query.get_or_404(post_id)
     if post.can_comment:
         post.can_comment = False
-        flash('Comment disabled.', 'info')
+        flash('Comment disabled.', 'success')
     else:
         post.can_comment = True
-        flash('Comment enabled.', 'info')
+        flash('Comment enabled.', 'success')
     db.session.commit()
     return redirect_back()
 
 @admin_bp.route('/comment/manage')
 @login_required
 def manage_comment():
-    filter_rule = request.args.get('filter', 'all') # 'all', 'unreviewed', 'admin'
+    filter_rule = request.args.get('filter', 'all')  # 'all', 'unreviewed', 'admin'
     page = request.args.get('page', 1, type=int)
     per_page = current_app.config['CRYPTICLOG_COMMENT_PER_PAGE']
     if filter_rule == 'unread':
@@ -119,7 +119,7 @@ def manage_comment():
 @login_required
 def approve_comment(comment_id):
     comment = Comment.query.get_or_404(comment_id)
-    comment.reviewed =True
+    comment.reviewed = True
     db.session.commit()
     flash('Comment published.', 'success')
     return redirect_back()
@@ -165,7 +165,7 @@ def edit_category(category_id):
         flash('Category updated.', 'success')
         return redirect(url_for('.manage_category'))
 
-    form.name.data = category.nam
+    form.name.data = category.name
     return render_template('admin/edit_category.html', form=form)
 
 
@@ -203,13 +203,13 @@ def new_link():
 @login_required
 def edit_link(link_id):
     form = LinkForm()
-    link = Link.query.get_of_404(link_id)
-    if form.valodate_on_submit():
+    link = Link.query.get_or_404(link_id)
+    if form.validate_on_submit():
         link.name = form.name.data
         link.url = form.url.data
         db.session.commit()
         flash('Link updated.', 'success')
-        return redirect(url_for('manage_link'))
+        return redirect(url_for('.manage_link'))
     form.name.data = link.name
     form.url.data = link.url
     return render_template('admin/edit_link.html', form=form)
