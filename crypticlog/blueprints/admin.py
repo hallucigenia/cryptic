@@ -199,7 +199,7 @@ def new_link():
         return redirect(url_for('.manage_link'))
     return render_template('admin/new_link.html', form=form)
 
-@admin_bp.route('/link/<int:link_id>edit', methods=['GET', 'POST'])
+@admin_bp.route('/link/<int:link_id>/edit', methods=['GET', 'POST'])
 @login_required
 def edit_link(link_id):
     form = LinkForm()

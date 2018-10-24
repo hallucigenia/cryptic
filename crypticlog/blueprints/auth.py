@@ -23,9 +23,9 @@ def login():
         admin = Admin.query.first()
         if admin:
             # verify username and password
-            if username == admin.username and admin.calidate_password(password):
+            if username == admin.username and admin.validate_password(password):
                 login_user(admin, remember) # login user
-                flash('Welcome back.', info')
+                flash('Welcome back.', 'info')
                 return redirect_back()
             flash('Invalid username or password.', 'warning')
         else:

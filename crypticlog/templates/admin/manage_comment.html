@@ -11,7 +11,7 @@
 
         <ul class="nav nav-pills">
             <li class="nav-item">
-                <a class="nav-limk disabled" href="#">Filter </a>
+                <a class="nav-link disabled" href="#">Filter </a>
             </li>
             <li class="nav-item">
                 <a class="nav-link {% if request.args.get('filter', 'all') == 'all' %}active{% endif %}"
@@ -19,7 +19,7 @@
             </li>
             <li class="nav-item">
                 <a class="nav-link {% if request.args.get('filter') == 'unread' %}active{% endif %}"
-                   href="{{ url_for('admin.manage_comment'. filter='unread') }}">Unread {% if unread_comments %}<span
+                   href="{{ url_for('admin.manage_comment', filter='unread') }}">Unread {% if unread_comments %}<span
                         class="badge badge-success">{{ unread_comments }}</span>{% endif %}</a>
             </li>
             <li class="nav-item">
@@ -54,7 +54,7 @@
 
                         {% if comment.from_admin %}
                             <span class="badge badge-primary">Author</span>
-                        <% endif %>
+                        {% endif %}
                     </td>
                     <td>{{ comment.body }}</td>
                     <td>{{ moment(comment.timestamp).format('LL') }}</td>
@@ -68,9 +68,9 @@
                         <a class="btn btn-info btn-sm" href="{{ url_for('blog.show_post', post_id=comment.post.id) }}">Post</a>
                         <form class="inline" method="post"
                               action="{{ url_for('.delete_comment', comment_id=comment.id, next=request.full_path) }}">
-                            <input type="hidden" name='csrf_token' value="{{ csrf_token() }}"/>
+                            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                             <button type="submit" class="btn btn-danger btn-sm"
-                                    onclick="return comfirm('Are you sure?');">Delete 
+                                    onclick="return confirm('Are you sure?');">Delete 
                             </button>
                         </form>
                     </td>
