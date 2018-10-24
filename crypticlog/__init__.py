@@ -18,6 +18,8 @@ from crypticlog.settings import config
 from crypticlog.blueprints.auth import auth_bp
 from crypticlog.models import Admin, Category, Post, Comment, Link
 
+basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+
 
 def create_app(config_name=None):
     if config_name is None:
@@ -73,9 +75,13 @@ def register_logging(app):
 def register_extensions(app):
     bootstrap.init_app(app)
     db.init_app(app)
+    login_manager.init_app(app)
+    csrf.init_app(app)
     ckeditor.init_app(app)
     mail.init_app(app)
     moment.init_app(app)
+    toolbar.init_app(app)
+    migrate.init_app(app,db)
 
 def register_blueprints(app):
     app.register_blueprint(blog_bp)
@@ -85,14 +91,19 @@ def register_blueprints(app):
 def register_shell_context(app):
     @app.shell_context_processor
     def make_shell_context():
-        return dict(db=db)
+        return dict(db=db, Admin=Admin, Post=Post, Category=Category, Comment=Comment)
 
 def register_template_context(app):
     @app.context_processor
     def make_template_context():
         admin = Admin.query.first()
         categories = Category.query.order_by(Category.name).all()
-        return dict(admin=admin, categories=categories)
+        links = Link.query.order_by(Link.name).all()
+        if current_user.is_authenticated:
+            unread_comments = Comment.query.filter_by(reviewed=False).count()
+        else:
+            unread_comments = None
+        return dict(admin=admin, categories=categories, links=links, unread_comments=unread_comments)
 
 def register_errors(app):
     @app.errorhandler(400)
@@ -113,7 +124,16 @@ def register_errors(app):
 
 
 def register_commands(app):
-    #...
+    @app.cli.commend()
+    @click.option('--drop', is_flag=True, help='Create afer drop.')
+    def initdb(drop):
+        """Initialize the database."""
+        if drop:
+            click.confirm('This operation will delete the database, do you want to continue?', abort=True)
+            db.drop_all()
+            click.echo('Drop tables.')
+        db.create_all()
+        click.echo('Initialized database.')
 
     @app.cli.command()
     @click.option('--username', prompt=True, help='The username used to login.')
@@ -150,3 +170,43 @@ def register_commands(app):
 
         db.session.commit()
         click.echo('Done.')
+
+    @app.cli.command()
+    @click.option('--category', default=10, help='Quantity of categories, default is 10.')
+    @click.option('--post', default=50, help='Quantity of posts, default is 50.')
+    @click.option('--comment', default=500, help='Quantity of comments, default is 500.')
+    def forge(category, post, comment):
+        """Generate fake data."""
+        from crypticlog.fakes import fake_admin, fake_categories, fake_posts, fake_comments, fake_links
+
+        db.drop_all()
+        db.create_all()
+
+        click.echo('Generating the administrator...')
+        fake_admin()
+
+        click.echo('Generating %d categories...' % category)
+        fake_categories(category)
+
+        click.echo('Generating %d posts...' % post)
+        fake_posts(post)
+
+        click.echo('Generating %d comments...' % comment)
+        fake_comments(comment)
+
+        click.echo('Generating links...')
+        fake_links()
+
+        click.echo('Done.')
+
+
+def register_request_handlers(app):
+    @app.after_request
+    def query_profiler(response):
+        for q in get_debug_queries():
+            if q.duration >= app.config['CRYPTICLOG_SLOW_QUERY_THRESHOLD']:
+                app.logger.warning(
+                    'Slow query: Duration: %fs\n Context: %s\nQuery: %s\n '
+                    % (q.duration, q.context, q.statement)
+                )
+        return response
