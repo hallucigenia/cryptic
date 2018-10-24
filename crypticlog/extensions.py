@@ -2,7 +2,6 @@
 __author__ = 'fansly'
 
 from flask_bootstrap import Bootstrap
-
 from flask_ckeditor import CKEditor
 from flask_login import LoginManager
 from flask_mail import Mail

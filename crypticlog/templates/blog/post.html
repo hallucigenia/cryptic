@@ -17,10 +17,11 @@
                 </button>
             </form>
         {% endif %}
-        </span>
+      </span>
         </h1>
         <small>
-            Category: <a href="{{ url_for('.show_category', category_id=post.category.id) }}">{{ post.category.name }}</a><br>
+            Category: <a
+                href="{{ url_for('.show_category', category_id=post.category.id) }}">{{ post.category.name }}</a><br>
             Date: {{ moment(post.timestamp).format('LL') }}
         </small>
     </div>
@@ -28,8 +29,10 @@
         <div class="col-sm-8">
             {{ post.body|safe }}
             <hr>
-            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".postLinkModal">Share</button>
-            <div class="modal fade postLinkModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+            <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".postLinkModal">Share
+            </button>
+            <div class="modal fade postLinkModal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel"
+                 aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
