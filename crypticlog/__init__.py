@@ -12,7 +12,7 @@ from flask_sqlalchemy import get_debug_queries
 from flask_wtf.csrf import CSRFError
 
 from crypticlog.blueprints.admin import admin_bp
-from crypticlog.blueprint.blog import blog_bp
+from crypticlog.blueprints.blog import blog_bp
 from crypticlog.extensions import bootstrap, db, login_manager, csrf, ckeditor, mail, moment, toolbar, migrate
 from crypticlog.settings import config
 from crypticlog.blueprints.auth import auth_bp
@@ -44,7 +44,7 @@ def register_logging(app):
         def format(self, record):
             record.url = request.url
             record.romote_addr = request.remote_addr
-            return super(RequestFormatter,self).format(record)
+            return super(RequestFormatter, self).format(record)
 
     request_formatter = RequestFormatter(
         '[%(asctime)s] %(remote_addr)s requested %(url)s\n'
@@ -81,7 +81,7 @@ def register_extensions(app):
     mail.init_app(app)
     moment.init_app(app)
     toolbar.init_app(app)
-    migrate.init_app(app,db)
+    migrate.init_app(app, db)
 
 def register_blueprints(app):
     app.register_blueprint(blog_bp)
@@ -125,7 +125,7 @@ def register_errors(app):
 
 def register_commands(app):
     @app.cli.commend()
-    @click.option('--drop', is_flag=True, help='Create afer drop.')
+    @click.option('--drop', is_flag=True, help='Create after drop.')
     def initdb(drop):
         """Initialize the database."""
         if drop:
@@ -138,7 +138,7 @@ def register_commands(app):
     @app.cli.command()
     @click.option('--username', prompt=True, help='The username used to login.')
     @click.option('--password', prompt=True, hide_input=True,
-                  confirmation_prompt-True, help='The password used to login.')
+                  confirmation_prompt=True, help='The password used to login.')
     def init(username, password):
         """Building Crypticlog, just for you."""
 
@@ -146,7 +146,7 @@ def register_commands(app):
         db.create_all()
 
         admin = Admin.query.first()
-        if admin: # update username and password if had admin's record in database
+        if admin is not None: # update username and password if had admin's record in database
             click.echo('The administrator already exists, updating...')
             admin.username = username
             admin.set_password(password)

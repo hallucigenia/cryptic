@@ -74,7 +74,8 @@ def edit_post(post_id):
     form.category.data = post.category_id
     return render_template('admin/edit_post.html', form=form)
 
-@admin_bp.route('/post/<int:post_id>/delete', methods=['POST']
+
+@admin_bp.route('/post/<int:post_id>/delete', methods=['POST'])
 @login_required
 def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
@@ -83,7 +84,8 @@ def delete_post(post_id):
     flash('Post deleted.', 'success')
     return redirect_back()
 
-@admin_bp.route('/set-comment/<int:post_id>')
+
+@admin_bp.route('/post/<int:post_id>/set-comment', methods=['POST'])
 @login_required
 def set_comment(post_id):
     post = Post.query.get_or_404(post_id)
@@ -122,7 +124,7 @@ def approve_comment(comment_id):
     flash('Comment published.', 'success')
     return redirect_back()
 
-@admin_bp.route('/comment/<int:comment_id>/delete', methods=['POST']
+@admin_bp.route('/comment/<int:comment_id>/delete', methods=['POST'])
 @login_required
 def delete_comment(comment_id):
     comment = Comment.query.get_or_404(comment_id)
@@ -136,7 +138,7 @@ def delete_comment(comment_id):
 def manage_category():
     return render_template('admin/manage_category.html')
 
-@admin_bp.route('/category/new', methods=['GET', 'POST']
+@admin_bp.route('/category/new', methods=['GET', 'POST'])
 @login_required
 def new_category():
     form = CategoryForm()

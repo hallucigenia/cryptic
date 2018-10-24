@@ -33,6 +33,9 @@ flask-ckeditor = "*"
 hues = "*"
 flask-login = "*"
 flask-admin = "*"
+faker = "*"
+unidecode = "*"
+flask-debugtoolbar = "*"
 
 [dev-packages]
 
