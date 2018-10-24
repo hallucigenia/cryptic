@@ -87,6 +87,7 @@ def fake_comments(count=500):
         )
         db.session.add(comment)
     db.session.commit()
+
     # replied
     for i in range(salt):
         comment = Comment(
