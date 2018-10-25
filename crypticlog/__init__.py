@@ -1,22 +1,20 @@
 # -*- coding=utf-8 -*-
+from crypticlog.models import Admin, Category, Post, Comment, Link
+from crypticlog.blueprints.auth import auth_bp
+from crypticlog.settings import config
+from crypticlog.extensions import bootstrap, db, login_manager, csrf, ckeditor, mail, moment, toolbar, migrate
+from crypticlog.blueprints.blog import blog_bp
+from crypticlog.blueprints.admin import admin_bp
+from flask_wtf.csrf import CSRFError
+from flask_sqlalchemy import get_debug_queries
+from flask_login import current_user
+from flask import Flask, render_template, request
+import click
+from logging.handlers import SMTPHandler, RotatingFileHandler
+import os
+import logging
 __author = 'fansly'
 
-import logging
-import os
-from logging.handlers import SMTPHandler, RotatingFileHandler
-
-import click
-from flask import Flask, render_template, request
-from flask_login import current_user
-from flask_sqlalchemy import get_debug_queries
-from flask_wtf.csrf import CSRFError
-
-from crypticlog.blueprints.admin import admin_bp
-from crypticlog.blueprints.blog import blog_bp
-from crypticlog.extensions import bootstrap, db, login_manager, csrf, ckeditor, mail, moment, toolbar, migrate
-from crypticlog.settings import config
-from crypticlog.blueprints.auth import auth_bp
-from crypticlog.models import Admin, Category, Post, Comment, Link
 
 basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
@@ -55,7 +53,7 @@ def register_logging(app):
     formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
     file_handler = RotatingFileHandler(os.path.join(basedir, 'logs/crypticlog.log'),
-                                      maxBytes=10 * 1024 * 1024, backupCount=10)
+                                       maxBytes=10 * 1024 * 1024, backupCount=10)
     file_handler.setFormatter(formatter)
     file_handler.setLevel(logging.INFO)
 
@@ -153,11 +151,11 @@ def register_commands(app):
         db.create_all()
 
         admin = Admin.query.first()
-        if admin is not None: # update username and password if had admin's record in database
+        if admin is not None:  # update username and password if had admin's record in database
             click.echo('The administrator already exists, updating...')
             admin.username = username
             admin.set_password(password)
-        else: # else then create new admin record
+        else:  # else then create new admin record
             click.echo('Creating the temporary administrator account...')
             admin = Admin(
                 username=username,

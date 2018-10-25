@@ -13,12 +13,14 @@ def _send_async_mail(app, message):
     with app.app_context():
         mail.send(message)
 
+
 def send_mail(subject, to, html):
-    app = current_app._get_current_object() #get agent's truth object
+    app = current_app._get_current_object()  # get agent's truth object
     message = Message(subject, recipients=[to], html=html)
     thr = Thread(target=_send_async_mail, args=[app, message])
     thr.start()
     return thr
+
 
 def send_new_comment_email(post):
     post_url = url_for('blog.show_post', post_id=post.id, _external=True) + '#comments'
@@ -27,6 +29,7 @@ def send_new_comment_email(post):
                    '<p><a href="%s">%s</a></P>'
                    '<p><small style="color: #868e96">Do not reply this email.</small></p>'
                    % (post.title, post_url, post_url))
+
 
 def send_new_reply_email(comment):
     post_url = url_for('blog.show_post', post_id=comment.post_id, _external=True) + '#comments'

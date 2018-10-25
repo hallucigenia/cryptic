@@ -11,6 +11,7 @@ from crypticlog.extensions import db
 
 admin_bp = Blueprint('admin', __name__)
 
+
 @admin_bp.route('/settings', methods=['GET', 'POST'])
 @login_required
 def settings():
@@ -39,6 +40,7 @@ def manage_post():
     posts = pagination.items
     return render_template('admin/manage_post.html', page=page, pagination=pagination, posts=posts)
 
+
 @admin_bp.route('/post/new', methods=['GET', 'POST'])
 @login_required
 def new_post():
@@ -56,6 +58,7 @@ def new_post():
         flash('Post created.', 'success')
         return redirect(url_for('blog.show_post', post_id=post.id))
     return render_template('admin/new_post.html', form=form)
+
 
 @admin_bp.route('/post/<int:post_id>/edit', methods=['GET', 'POST'])
 @login_required
@@ -98,6 +101,7 @@ def set_comment(post_id):
     db.session.commit()
     return redirect_back()
 
+
 @admin_bp.route('/comment/manage')
 @login_required
 def manage_comment():
@@ -115,6 +119,7 @@ def manage_comment():
     comments = pagination.items
     return render_template('admin/manage_comment.html', comments=comments, pagination=pagination)
 
+
 @admin_bp.route('/comment/<int:comment_id>/approve', methods=['POST'])
 @login_required
 def approve_comment(comment_id):
@@ -123,6 +128,7 @@ def approve_comment(comment_id):
     db.session.commit()
     flash('Comment published.', 'success')
     return redirect_back()
+
 
 @admin_bp.route('/comment/<int:comment_id>/delete', methods=['POST'])
 @login_required
@@ -133,10 +139,12 @@ def delete_comment(comment_id):
     flash('Comment deleted.', 'success')
     return redirect_back()
 
+
 @admin_bp.route('/category/manage')
 @login_required
 def manage_category():
     return render_template('admin/manage_category.html')
+
 
 @admin_bp.route('/category/new', methods=['GET', 'POST'])
 @login_required
@@ -150,6 +158,7 @@ def new_category():
         flash('Category created.', 'success')
         return redirect(url_for('.manage_category'))
     return render_template('admin/new_category.html', form=form)
+
 
 @admin_bp.route('/category/<int:category_id>/edit', methods=['GET', 'POST'])
 @login_required
@@ -180,10 +189,12 @@ def delete_category(category_id):
     flash('Category deleted.', 'success')
     return redirect(url_for('.manage_category'))
 
+
 @admin_bp.route('/link/manage')
 @login_required
 def manage_link():
     return render_template('admin/manage_link.html')
+
 
 @admin_bp.route('/link/new', methods=['GET', 'POST'])
 @login_required
@@ -198,6 +209,7 @@ def new_link():
         flash('Link created.', 'success')
         return redirect(url_for('.manage_link'))
     return render_template('admin/new_link.html', form=form)
+
 
 @admin_bp.route('/link/<int:link_id>/edit', methods=['GET', 'POST'])
 @login_required
@@ -214,6 +226,7 @@ def edit_link(link_id):
     form.url.data = link.url
     return render_template('admin/edit_link.html', form=form)
 
+
 @admin_bp.route('/link/<int:link_id>/delete', methods=['POST'])
 @login_required
 def delete_link(link_id):
@@ -222,4 +235,3 @@ def delete_link(link_id):
     db.session.commit()
     flash('Link deleted.', 'success')
     return redirect(url_for('.manage_link'))
-

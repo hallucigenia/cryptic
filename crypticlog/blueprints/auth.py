@@ -10,6 +10,7 @@ from crypticlog.utils import redirect_back
 
 auth_bp = Blueprint('auth', __name__)
 
+
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     if current_user.is_authenticated:
@@ -24,7 +25,7 @@ def login():
         if admin:
             # verify username and password
             if username == admin.username and admin.validate_password(password):
-                login_user(admin, remember) # login user
+                login_user(admin, remember)  # login user
                 flash('Welcome back.', 'info')
                 return redirect_back()
             flash('Invalid username or password.', 'warning')
@@ -39,5 +40,3 @@ def logout():
     logout_user()
     flash('Logout success.', 'info')
     return redirect_back()
-
-

@@ -8,6 +8,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 
 from crypticlog.extensions import db
 
+
 class Admin(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(20))
@@ -23,6 +24,7 @@ class Admin(db.Model, UserMixin):
     def validate_password(self, password):
         return check_password_hash(self.password_hash, password)
 
+
 class Category(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30), unique=True)
@@ -36,6 +38,7 @@ class Category(db.Model):
             post.category = default_category
         db.session.delete(self)
         db.session.commit()
+
 
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -71,8 +74,9 @@ class Comment(db.Model):
     replies = db.relationship('Comment', backref=db.backref('replied', remote_side=[id]),
     cascade = 'all,delete-orphan')
     """
+
+
 class Link(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(30))
     url = db.Column(db.String(255))
-

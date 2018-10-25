@@ -11,6 +11,7 @@ from crypticlog.extensions import db
 
 fake = Faker()
 
+
 def fake_admin():
     admin = Admin(
         username='admin',
@@ -22,6 +23,7 @@ def fake_admin():
     admin.set_password('helloflask')
     db.session.add(admin)
     db.session.commit()
+
 
 def fake_categories(count=10):
     category = Category(name='Default')
@@ -35,6 +37,7 @@ def fake_categories(count=10):
         except IntegrityError:
             db.session.rollback()
 
+
 def fake_posts(count=50):
     for i in range(count):
         post = Post(
@@ -46,6 +49,7 @@ def fake_posts(count=50):
 
         db.session.add(post)
     db.session.commit()
+
 
 def fake_comments(count=500):
     for i in range(count):
@@ -102,6 +106,7 @@ def fake_comments(count=500):
         )
         db.session.add(comment)
     db.session.commit()
+
 
 def fake_links():
     twitter = Link(name='Twitter', url='#')
