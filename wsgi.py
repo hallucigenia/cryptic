@@ -1,3 +1,6 @@
+# -*-coding: utf-8 -*-
+__author__ = 'fansly'
+
 import os
 from dotenv import load_dotenv
 

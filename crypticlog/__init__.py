@@ -1,4 +1,6 @@
-# -*- coding=utf-8 -*-
+# -*- coding: utf-8 -*-
+__author__ = 'fansly'
+
 from crypticlog.models import Admin, Category, Post, Comment, Link
 from crypticlog.blueprints.auth import auth_bp
 from crypticlog.settings import config

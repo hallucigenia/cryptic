@@ -43,6 +43,7 @@ flask-sslify = "*"
 flask-bootstrap = "*"
 "autopep8" = "*"
 sentry-sdk = {version = "==0.5.1", extras = ["flask"]}
+requests = "*"
 
 [dev-packages]
 selenium = "*"
