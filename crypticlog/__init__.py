@@ -161,10 +161,10 @@ def register_commands(app):
             click.echo('Creating the temporary administrator account...')
             admin = Admin(
                 username=username,
-                blog_title='抹茶blog',
-                blog_sub_title="我也算blog.",
+                blog_title='Tea blog',
+                blog_sub_title="I also a blog.",
                 name='Fansly',
-                about='说什么王权富贵 怕什么戒律清规'
+                about='a young man'
             )
             admin.set_password(password)
             db.session.add(admin)
