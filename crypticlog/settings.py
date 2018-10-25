@@ -31,7 +31,7 @@ class BaseConfig(object):
 
     CRYPTICLOG_EMAIL = os.getenv('CRYPTICLOG_EMAIL')
     CRYPTICLOG_POST_PER_PAGE = 10
-    CRYPTICLOG_MSNAGE_POST_PER_PAGE = 15
+    CRYPTICLOG_MANAGE_POST_PER_PAGE = 15
     CRYPTICLOG_COMMENT_PER_PAGE = 15
     # ('theme name', 'display name')
     CRYPTICLOG_THEMES = {'perfect_blue': 'Perfect Blue', 'black_swan': 'Black Swan'}
@@ -54,4 +54,3 @@ config = {
     'testing': TestingConfig,
     'production': ProductionConfig
 }
-

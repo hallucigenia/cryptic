@@ -1,8 +1,8 @@
 # -*-coding:utf-8 -*-
 __author__ = 'fansly'
 
-from bluelog.models import Admin, Post, Category, Comment
-from bluelog.extensions import db
+from crypticlog.models import Admin, Post, Category, Comment
+from crypticlog.extensions import db
 from tests.base import BaseTestCase
 
 

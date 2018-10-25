@@ -38,6 +38,7 @@ def create_app(config_name=None):
     register_request_handlers(app)
     return app
 
+
 def register_logging(app):
     class RequestFormatter(logging.Formatter):
 
@@ -83,15 +84,18 @@ def register_extensions(app):
     toolbar.init_app(app)
     migrate.init_app(app, db)
 
+
 def register_blueprints(app):
     app.register_blueprint(blog_bp)
     app.register_blueprint(admin_bp, url_prefix='/admin')
     app.register_blueprint(auth_bp, url_prefix='/auth')
 
+
 def register_shell_context(app):
     @app.shell_context_processor
     def make_shell_context():
         return dict(db=db, Admin=Admin, Post=Post, Category=Category, Comment=Comment)
+
 
 def register_template_context(app):
     @app.context_processor
@@ -103,7 +107,10 @@ def register_template_context(app):
             unread_comments = Comment.query.filter_by(reviewed=False).count()
         else:
             unread_comments = None
-        return dict(admin=admin, categories=categories, links=links, unread_comments=unread_comments)
+        return dict(
+            admin=admin, categories=categories,
+            links=links, unread_comments=unread_comments)
+
 
 def register_errors(app):
     @app.errorhandler(400)

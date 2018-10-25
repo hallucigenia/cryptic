@@ -41,8 +41,12 @@ gunicorn = "*"
 coverage = "*"
 flask-sslify = "*"
 flask-bootstrap = "*"
+"autopep8" = "*"
 
 [dev-packages]
+selenium = "*"
+coverage = "*"
+"flake8" = "*"
 
 [requires]
 python_version = "3.7"
