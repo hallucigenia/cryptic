@@ -68,12 +68,10 @@ class Comment(db.Model):
 
     post = db.relationship('Post', back_populates='comments')
     replies = db.relationship('Comment', back_populates='replied', cascade='all, delete-orphan')
-    replied = db.relationship('Comment', back_populates="replies", remote_side=[id])
-    """
-    Same with:
-    replies = db.relationship('Comment', backref=db.backref('replied', remote_side=[id]),
-    cascade = 'all,delete-orphan')
-    """
+    replied = db.relationship('Comment', back_populates='replies', remote_side=[id])
+    # Same with:
+    # replies = db.relationship('Comment', backref=db.backref('replied', remote_side=[id]),
+    # cascade='all,delete-orphan')
 
 
 class Link(db.Model):

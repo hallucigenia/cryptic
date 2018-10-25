@@ -1,22 +1,22 @@
 # -*- coding: utf-8 -*-
 __author__ = 'fansly'
 
-from crypticlog.models import Admin, Category, Post, Comment, Link
-from crypticlog.blueprints.auth import auth_bp
-from crypticlog.settings import config
-from crypticlog.extensions import bootstrap, db, login_manager, csrf, ckeditor, mail, moment, toolbar, migrate
-from crypticlog.blueprints.blog import blog_bp
-from crypticlog.blueprints.admin import admin_bp
-from flask_wtf.csrf import CSRFError
-from flask_sqlalchemy import get_debug_queries
-from flask_login import current_user
-from flask import Flask, render_template, request
-import click
-from logging.handlers import SMTPHandler, RotatingFileHandler
-import os
 import logging
-__author = 'fansly'
+import os
+from logging.handlers import SMTPHandler, RotatingFileHandler
 
+import click
+from flask import Flask, render_template, request
+from flask_login import current_user
+from flask_sqlalchemy import get_debug_queries
+from flask_wtf.csrf import CSRFError
+
+from crypticlog.blueprints.admin import admin_bp
+from crypticlog.blueprints.auth import auth_bp
+from crypticlog.blueprints.blog import blog_bp
+from crypticlog.extensions import bootstrap, db, login_manager, csrf, ckeditor, mail, moment, toolbar, migrate
+from crypticlog.models import Admin, Post, Category, Comment, Link
+from crypticlog.settings import config
 
 basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
@@ -161,10 +161,10 @@ def register_commands(app):
             click.echo('Creating the temporary administrator account...')
             admin = Admin(
                 username=username,
-                blog_title='Crypticlog',
-                blog_sub_title="No, I'm the real thing.",
-                name='Admin',
-                about='Anything about you.'
+                blog_title='抹茶blog',
+                blog_sub_title="我也算blog.",
+                name='Fansly',
+                about='说什么王权富贵 怕什么戒律清规'
             )
             admin.set_password(password)
             db.session.add(admin)

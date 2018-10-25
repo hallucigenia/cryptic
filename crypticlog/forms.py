@@ -3,8 +3,9 @@ __author__ = 'fansly'
 
 from flask_ckeditor import CKEditorField
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, SelectField, TextAreaField, HiddenField, ValidationError # noqa
-from wtforms.validators import DataRequired, Email, URL, Length, Optional
+from wtforms import StringField, SubmitField, SelectField, TextAreaField, ValidationError, HiddenField, \
+    BooleanField, PasswordField
+from wtforms.validators import DataRequired, Email, Length, Optional, URL
 
 from crypticlog.models import Category
 
