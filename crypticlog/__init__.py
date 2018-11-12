@@ -14,7 +14,7 @@ from flask_wtf.csrf import CSRFError
 from crypticlog.blueprints.admin import admin_bp
 from crypticlog.blueprints.auth import auth_bp
 from crypticlog.blueprints.blog import blog_bp
-from crypticlog.extensions import bootstrap, db, login_manager, csrf, ckeditor, mail, moment, toolbar, migrate
+from crypticlog.extensions import bootstrap, db, login_manager, csrf, ckeditor, whooshee, mail, moment, toolbar, migrate
 from crypticlog.models import Admin, Post, Category, Comment, Link
 from crypticlog.settings import config
 
@@ -36,6 +36,7 @@ def create_app(config_name=None):
     register_shell_context(app)
     register_template_context(app)
     register_request_handlers(app)
+    
     return app
 
 
@@ -82,8 +83,8 @@ def register_extensions(app):
     mail.init_app(app)
     moment.init_app(app)
     toolbar.init_app(app)
+    whooshee.init_app(app)
     migrate.init_app(app, db)
-
 
 def register_blueprints(app):
     app.register_blueprint(blog_bp)

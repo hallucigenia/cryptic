@@ -19,7 +19,7 @@
         <!-- CSS Just for demo purpose, don't include it in your project -->
         <link href="{{ url_for('static', filename='demo/demo.css') }}"  rel="stylesheet" />
         <!-- Material Kit CSS -->
-        <link href="assets/css/material-kit.css?v=2.0.4" rel="stylesheet" />  
+        <link href="{{ url_for('static', filename='css/material-kit.css') }}" rel="stylesheet" />  
     {% endblock head %} 
 </head>
 
@@ -29,7 +29,7 @@
         <div class="container">
             <div class="navbar-translate">
                 <a class="navbar-brand" href="https://demos.creative-tim.com/material-kit/index.html">
-                  Material Kit </a>
+                  {{ admin.blog_title|default('Blog Title') }} </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="navbar-toggler-icon"></span>
@@ -39,6 +39,11 @@
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="javascript:void(0)" onclick="scrollToDownload()">
+                            <i class="material-icons">person</i> About Me
+                        </a>
+                    </li> 
                     <li class="dropdown nav-item">
                         <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                             <i class="material-icons">apps</i> Components
@@ -52,40 +57,29 @@
                             </a>
                         </div>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)" onclick="scrollToDownload()">
-                            <i class="material-icons">cloud_download</i> Download
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="https://twitter.com/CreativeTim" target="_blank" data-original-title="Follow us on Twitter">
-                            <i class="fa fa-twitter"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="https://www.facebook.com/CreativeTim" target="_blank" data-original-title="Like us on Facebook">
-                            <i class="fa fa-facebook-square"></i>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" rel="tooltip" title="" data-placement="bottom" href="https://www.instagram.com/CreativeTimOfficial" target="_blank" data-original-title="Follow us on Instagram">
-                            <i class="fa fa-instagram"></i>
-                        </a>
-                    </li>
+                    <form class="form-inline ml-auto">
+                        <div class="form-group no-border">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-white btn-just-icon btn-round">
+                            <i class="material-icons">search</i>
+                        </button>
+                    </form>
                 </ul>
+                
             </div>
         </div>
     </nav>
-
     <div class="page-header header-filter" data-parallax="true" style="background-image: url({{ url_for('static', filename='img/profile_city.jpg') }})">
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <h1 class="title">{{ admin.blog_title|default('Blog Title') }}</h1>
                     <h4 class="text-muted">&nbsp;{{ admin.blog_sub_title|default('Blog Subtitle') }}</h4>
                     <br>
-                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="btn btn-danger btn-raised btn-lg">
-                        <i class="fa fa-address-card-o"></i> ABOUT ME
+                    <br>
+                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="btn btn-primary btn-raised btn-lg">
+                        <i class="fas fa-book-reader"></i> Read More
                     </a>
                 </div>
             </div>
@@ -151,24 +145,19 @@
             <div class="container">
                 <nav class="float-left">
                     <ul>
-                        <li>
-                            <a href="https://www.creative-tim.com">
-                              Creative Tim
+                        <li class="nav-item">
+                            <a class="nav-link" rel="tooltip" title="" data-placement="top" href="https://twitter.com/_fancyan" target="_blank" data-original-title="Follow me on Twitter">
+                                <i class="fa fa-twitter"></i>
                             </a>
                         </li>
-                        <li>
-                            <a href="https://creative-tim.com/presentation">
-                              About Us
+                        <li class="nav-item">
+                            <a class="nav-link" rel="tooltip" title="" data-placement="top" href="https://github.com/hallucigenia" target="_blank" data-original-title="Like me on Github">
+                                <i class="fa fa-github"></i>
                             </a>
                         </li>
-                        <li>
-                            <a href="http://blog.creative-tim.com">
-                              Blog
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://www.creative-tim.com/license">
-                              Licenses
+                        <li class="nav-item">
+                            <a class="nav-link" rel="tooltip" title="" data-placement="top" href="https://www.instagram.com/monophoton/" target="_blank" data-original-title="Follow me on Instagram">
+                                <i class="fa fa-instagram"></i>
                             </a>
                         </li>
                     </ul>
@@ -178,7 +167,7 @@
                     <script>
                         document.write(new Date().getFullYear())
                     </script>, made with <i class="material-icons">favorite</i> by
-                    <a href="https://www.creative-tim.com" target="_blank">Fancy</a> for study.
+                    <a href="https://www.creative-tim.com" target="_blank">Fancy</a>.
                 </div>
             </div>
         </footer>

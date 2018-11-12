@@ -1,16 +1,3 @@
-{% if links %}
-    <div class="card mb-3">
-        <div class="card-header">Links</div>
-        <ul class="list-group list-group-flush">
-            {% for link in links %}
-                <li class="list-group-item  list-group-item-action d-flex justify-content-between align-items-center">
-                    <a href="{{ link.url }}" target="_blank">{{ link.name }}</a>
-                </li>
-            {% endfor %}
-        </ul>
-    </div>
-{% endif %}
-
 {% if categories %}
     <div class="card mb-3 card-nav-tabs">
         <div class="card-header card-header-primary">Categories</div>
@@ -25,7 +12,23 @@
             {% endfor %}
         </ul>
     </div>
+    <br>
 {% endif %}
+
+{% if links %}
+    <div class="card mb-3">
+        <div class="card-header">Links</div>
+        <ul class="list-group list-group-flush">
+            {% for link in links %}
+                <li class="list-group-item  list-group-item-action d-flex justify-content-between align-items-center">
+                    <a href="{{ link.url }}" target="_blank">{{ link.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endif %}
+
+
 
 <ul class="nav nav-pills">
   <li class="nav-item dropdown">

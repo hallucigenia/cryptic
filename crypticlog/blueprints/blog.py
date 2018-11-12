@@ -108,3 +108,20 @@ def change_theme(theme_name):
     response = make_response(redirect_back())
     response.set_cookie('theme', theme_name, max_age=30 * 24 * 60 * 60)
     return response
+
+@blog_bp.route('/search')
+def search():
+    q = request.args.get('q', '')
+    if q == '':
+        flash('Enter keyword about post or comment.', 'warning')
+        return redirect_back()
+
+    category = request.args.get('category', 'photo')
+    page = request.args.get('page', 1, type=int)
+    per_page = current_app.config['ALBUMY_SEARCH_RESULT_PER_PAGE']
+    if category == 'Post':
+        pagination = Post.query.whooshee_search(q).paginate(page, per_page)
+    else:
+        pagination = Comment.query.whooshee_search(q).paginate(page, per_page)
+    results = pagination.items
+    return render_template('blog/search.html', q=q, results=results, pagination=pagination, category=category)
