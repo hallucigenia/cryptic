@@ -91,50 +91,14 @@
     <div class="main main-raised">
         <div class="container" id="topic">
             <div class="section text-center">
+                {% for message in get_flashed_messages(with_categories=True) %}
+                    <div class="alert alert-{{ message[0] }}" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {{ message[1] }}
+                    </div>
+                {% endfor %}
                 <ul class="nav navbar-nav navbar-right">
-                    {% for message in get_flashed_messages(with_categories=True) %}
-                        <div class="alert alert-{{ message[0] }}" role="alert">
-                            <button type="button" class="close" data-dismiss="alert">&times;</button>
-                            {{ message[1] }}
-                        </div>
-                    {% endfor %}
-                    {% block content %}{% endblock content %}
-                    {% if current_user.is_authenticated %}
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-                            aria-haspopup="true"
-                            aria-expanded="false">
-                                New <span class="caret"></span>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ url_for('admin.new_post') }}">Post</a>
-                                <a class="dropdown-item" href="{{ url_for('admin.new_category') }}">Category</a>
-                                <a class="dropdown-item" href="{{ url_for('admin.new_link') }}">Link</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-                            aria-haspopup="true"
-                            aria-expanded="false">
-                                Manage <span class="caret"></span>
-                                {% if unread_comments %}
-                                    <span class="badge badge-success">new</span>
-                                {% endif %}
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ url_for('admin.manage_post') }}">Post</a>
-                                <a class="dropdown-item" href="{{ url_for('admin.manage_category') }}">Category</a>
-                                <a class="dropdown-item" href="{{ url_for('admin.manage_comment') }}">
-                                    Comment
-                                    {% if unread_comments %}
-                                        <span class="badge badge-success">{{ unread_comments }}</span>
-                                    {% endif %}
-                                </a>
-                                <a class="dropdown-item" href="{{ url_for('admin.manage_link') }}">Link</a>
-                            </div>
-                        </li>
-                        {{ render_nav_item('admin.settings', 'Settings') }}
-                    {% endif %}
+                {% block content %}{% endblock content %}
                 </ul>
             </div>
         </div>
@@ -147,17 +111,17 @@
                 <nav class="float-left">
                     <ul>
                         <li class="nav-item">
-                            <a class="nav-link" title="" data-placement="top" href="https://twitter.com/_fancyan" target="_blank" data-original-title="Follow me on Twitter">
+                            <a class="nav-link" data-placement="top" data-toggle="tooltip" href="https://twitter.com/_fancyan" target="_blank" title="Follow me on Twitter">
                                 <i class="fa fa-2x fa-twitter"></i>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" title="" data-placement="top" href="https://github.com/hallucigenia" target="_blank" data-original-title="Like me on Github">
+                            <a class="nav-link" data-placement="top" data-toggle="tooltip" href="https://github.com/hallucigenia" target="_blank" title="Like me on Github">
                                 <i class="fa fa-2x fa-github"></i>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" title="" data-placement="top" href="https://www.instagram.com/monophoton/" target="_blank" data-original-title="Follow me on Instagram">
+                            <a class="nav-link" data-placement="top" data-toggle="tooltip" href="https://www.instagram.com/monophoton/" target="_blank" title="Follow me on Instagram">
                                 <i class="fa fa-2x fa-instagram"></i>
                             </a>
                         </li>
