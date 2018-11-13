@@ -7,7 +7,7 @@
         <title>{% block title %}{% endblock title %} - {{ admin.blog_title|default('Blog Title') }}</title>
         <meta charset="utf-8" />
         <link rel="apple-touch-icon" sizes="76x76" href="{{ url_for('static', filename='img/apple-icon.png') }}">
-        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+        <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
@@ -24,7 +24,7 @@
 </head>
 
 <body>
-{% block nav %}
+    {% block nav %}
     <nav class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
         <div class="container">
             <div class="navbar-translate">
@@ -40,7 +40,7 @@
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="javascript:void(0)" onclick="scrollToDownload()">
+                        <a class="nav-link" href="#about" onclick="scrollToDownload()">
                             <i class="material-icons">person</i> About Me
                         </a>
                     </li> 
@@ -52,9 +52,15 @@
                             <a href="../index.html" class="dropdown-item">
                                 <i class="material-icons">layers</i> All Components
                             </a>
-                            <a href="https://demos.creative-tim.com/material-kit/docs/2.0/getting-started/introduction.html" class="dropdown-item">
-                                <i class="material-icons">content_paste</i> Documentation
-                            </a>
+                            {% if current_user.is_authenticated %}
+                                <a href="{{ url_for('auth.logout', next=request.full_path) }}"  class="dropdown-item">
+                                    <i class="material-icons">content_paste</i> Logout
+                                </a>
+                            {% else %}
+                                <a href="{{ url_for('auth.login', next=request.full_path) }}"  class="dropdown-item">
+                                    <i class="material-icons">content_paste</i> Login
+                                </a>
+                            {% endif %}
                         </div>
                     </li>
                     <form class="form-inline ml-auto">
@@ -70,6 +76,8 @@
             </div>
         </div>
     </nav>
+    {% endblock nav %}
+{% block index %}
     <div class="page-header header-filter" data-parallax="true" style="background-image: url({{ url_for('static', filename='img/profile_city.jpg') }})">
         <div class="container">
             <div class="row">
@@ -78,13 +86,15 @@
                     <h4 class="text-muted">&nbsp;{{ admin.blog_sub_title|default('Blog Subtitle') }}</h4>
                     <br>
                     <br>
-                    <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank" class="btn btn-primary btn-raised btn-lg">
+                    <a href="#" target="_blank" class="btn btn-primary btn-raised btn-lg">
                         <i class="fas fa-book-reader"></i> Read More
                     </a>
                 </div>
             </div>
         </div>
     </div>
+{% endblock index %}   
+{% block page %}
     <div class="main main-raised">
         <div class="container">
             <div class="section text-center">
@@ -136,10 +146,8 @@
             </div>
         </div>
     </div>
-{% endblock nav %}
-
-<main class="container">
-    
+{% endblock page %}
+<main class="container">   
     {% block footer %}
         <footer class="footer footer-default">
             <div class="container">

@@ -27,18 +27,3 @@
         </ul>
     </div>
 {% endif %}
-
-
-
-<ul class="nav nav-pills">
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Change Theme</a>
-    <div class="dropdown-menu">
-        {% for theme_name, display_name in config.CRYPTICLOG_THEMES.items() %}
-        <a class="dropdown-item"
-            href="{{ url_for('blog.change_theme', theme_name=theme_name, next=request.full_path) }}">
-             {{ display_name }}</a>
-        {% endfor %}
-    </div>
-  </li>
-</ul>

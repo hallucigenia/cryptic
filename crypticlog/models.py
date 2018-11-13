@@ -53,7 +53,7 @@ class Post(db.Model):
     category = db.relationship('Category', back_populates='posts')
     comments = db.relationship('Comment', back_populates='post', cascade='all, delete-orphan')
 
-@whooshee.register_model('body')
+
 class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     author = db.Column(db.String(30))
