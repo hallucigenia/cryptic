@@ -1,4 +1,5 @@
 {% from 'bootstrap/nav.html' import render_nav_item %}
+{% from 'bootstrap/form.html' import render_form %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -20,6 +21,7 @@
         <link href="{{ url_for('static', filename='demo/demo.css') }}"  rel="stylesheet" />
         <!-- Material Kit CSS -->
         <link href="{{ url_for('static', filename='css/material-kit.css') }}" rel="stylesheet" />  
+        <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" /> 
     {% endblock head %} 
 </head>
 
@@ -30,7 +32,7 @@
     <nav class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
         <div class="container">
             <div class="navbar-translate">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href={{url_for('blog.index') }}>
                 {{ admin.blog_title|default('Blog Title') }} </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="sr-only">Toggle navigation</span>
@@ -41,31 +43,20 @@
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                    {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('auth.logout', next=request.full_path) }}"  class="nav-link">
+                        <i class="material-icons">content_paste</i> Logout
+                    </a>
+                    {% else %}
                     {% block me %}
                     <li class="nav-item">
-                        <a class="nav-link" href="about#" onclick="scrollToDownload()">
-                            <i class="material-icons">person</i> About Me
+                        <a class="nav-link"  data-toggle="modal" data-target="#loginModal">
+                            <i class="material-icons">assignment</i> Login 
                         </a>
                     </li> 
                     {% endblock me %}
-                    <li class="dropdown nav-item">
-                        <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                            <i class="material-icons">apps</i> Components
-                        </a>
-                        <div class="dropdown-menu dropdown-with-icons">
-                            <a href="../index.html" class="dropdown-item">
-                                <i class="material-icons">layers</i> All Components
-                            </a>
-                            {% if current_user.is_authenticated %}
-                                <a href="{{ url_for('auth.logout', next=request.full_path) }}"  class="dropdown-item">
-                                    <i class="material-icons">content_paste</i> Logout
-                                </a>
-                            {% else %}
-                                <a href="{{ url_for('auth.login', next=request.full_path) }}"  class="dropdown-item">
-                                    <i class="material-icons">content_paste</i> Login
-                                </a>
-                            {% endif %}
-                        </div>
+                    {% endif %}
                     </li>
                     <form class="form-inline ml-auto">
                         <div class="form-group no-border">
@@ -90,15 +81,15 @@
                     <h4 class="text-muted">&nbsp;{{ admin.blog_sub_title|default('Blog Subtitle') }}</h4>
                     <br>
                     <br>
-                    <a href="#" target="_blank" class="btn btn-primary btn-raised btn-lg">
-                        <i class="fas fa-book-reader"></i> Read More
+                    <a href="/about" target="_blank" class="btn btn-primary btn-raised btn-lg">
+                        <i class="fas fa-book-reader"></i> About Me
                     </a>
                 </div>
             </div>
         </div>
     </div>
     <div class="main main-raised">
-        <div class="container">
+        <div class="container" id="topic">
             <div class="section text-center">
                 <ul class="nav navbar-nav navbar-right">
                     {% for message in get_flashed_messages(with_categories=True) %}
@@ -156,20 +147,27 @@
                 <nav class="float-left">
                     <ul>
                         <li class="nav-item">
-                            <a class="nav-link" rel="tooltip" title="" data-placement="top" href="https://twitter.com/_fancyan" target="_blank" data-original-title="Follow me on Twitter">
-                                <i class="fa fa-twitter"></i>
+                            <a class="nav-link" title="" data-placement="top" href="https://twitter.com/_fancyan" target="_blank" data-original-title="Follow me on Twitter">
+                                <i class="fa fa-2x fa-twitter"></i>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" rel="tooltip" title="" data-placement="top" href="https://github.com/hallucigenia" target="_blank" data-original-title="Like me on Github">
-                                <i class="fa fa-github"></i>
+                            <a class="nav-link" title="" data-placement="top" href="https://github.com/hallucigenia" target="_blank" data-original-title="Like me on Github">
+                                <i class="fa fa-2x fa-github"></i>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" rel="tooltip" title="" data-placement="top" href="https://www.instagram.com/monophoton/" target="_blank" data-original-title="Follow me on Instagram">
-                                <i class="fa fa-instagram"></i>
+                            <a class="nav-link" title="" data-placement="top" href="https://www.instagram.com/monophoton/" target="_blank" data-original-title="Follow me on Instagram">
+                                <i class="fa fa-2x fa-instagram"></i>
                             </a>
                         </li>
+                        <small>
+                            {% if current_user.is_authenticated %}
+                                <a href="{{ url_for('auth.logout', next=request.full_path) }}">Logout</a>
+                            {% else %}
+                                <a href="{{ url_for('auth.login', next=request.full_path) }}">Login</a>
+                            {% endif %}
+                        </small>
                     </ul>
                 </nav>
                 <div class="copyright float-right">
@@ -205,3 +203,69 @@
 {% endblock %}
 </body>
 </html>
+
+
+<div class="modal fade" id="loginModal" tabindex="-1" role="">
+    <div class="modal-dialog modal-login" role="document">
+        <div class="modal-content">
+            <div class="card card-signup card-plain">
+                <div class="modal-header">
+                    <div class="card-header card-header-primary text-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+                        <h4 class="card-title">Log in</h4>
+                        <div class="social-line">
+                            <a href="#pablo" class="btn btn-just-icon btn-link">
+                                <i class="fa fa-facebook-square"></i>
+                            </a>
+                            <a href="#pablo" class="btn btn-just-icon btn-link">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                            <a href="#pablo" class="btn btn-just-icon btn-link">
+                                <i class="fa fa-google-plus"></i>
+                            <div class="ripple-container"></div></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <form class="form" method="POST" action="">
+                        <p class="description text-center">Or Be Classical</p>
+                        <div class="card-body">
+
+                            <div class="form-group bmd-form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">face</i>
+                                    </span>
+                                    <input type="text" class="form-control" placeholder="First Name...">
+                                </div>
+                            </div>
+
+                            <div class="form-group bmd-form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">email</i>
+                                    </span>
+                                    </form>
+                                    <input type="text" class="form-control" placeholder="Email...">
+                                </div>
+                            </div>
+
+                            <div class="form-group bmd-form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">lock_outline</i>
+                                    </span>
+                                    <input type="password" placeholder="Password..." class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <a href="#pablo" class="btn btn-primary btn-link btn-wd btn-lg">Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

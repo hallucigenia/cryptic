@@ -14,7 +14,7 @@
     <hr />
     <ul class="pagination  justify-content-center">
         <li class="page-item {% if not pagination.has_prev %}disabled{% endif %}">
-            <a class="page-link" href="{{ url_for(request.endpoint, page=pagination.prev_num, **kwargs) + fragment if pagination.has_prev else '#'}}">
+            <a class="page-link" href="{{ url_for(request.endpoint, page=pagination.prev_num, **kwargs) + fragment if pagination.has_prev else '#'}}#topic">
             <span class="page-link">Previous</span>
             </a>
         </li>
@@ -25,7 +25,7 @@
                 <span class="sr-only">(current)</span>
             </span>
         {% else %}
-            <a class="page-link" href="?page=1#">1</a>
+            <a class="page-link" href="?page=1#topic">1</a>
         {% endif %}
         </li>
         <li class="page-item {% if page == 2 %}active{% endif %}">
@@ -35,7 +35,7 @@
                 <span class="sr-only">(current)</span>
             </span>
         {% else %}
-            <a class="page-link" href="?page=2#">2</a>
+            <a class="page-link" href="?page=2#topic">2</a>
         {% endif %}
         </li>
         <li class="page-item {% if page == 3 %}active{% endif %}">
@@ -45,11 +45,11 @@
                 <span class="sr-only">(current)</span>
             </span>
         {% else %}
-            <a class="page-link" href="?page=3#">3</a>
+            <a class="page-link" href="?page=3#topic">3</a>
         {% endif %}
         </li>
         <li class="page-item {% if not pagination.has_next %}diabled{% endif %}">
-            <a class="page-link" href="{{ url_for(request.endpoint, page=pagination.next_num, **kwargs) + fragment if pagination.has_next else '#'}}">
+            <a class="page-link" href="{{ url_for(request.endpoint, page=pagination.next_num, **kwargs) + fragment if pagination.has_next else '#'}}#topic">
             <span class="page-link">Next</span>
             </a>
         </li>
