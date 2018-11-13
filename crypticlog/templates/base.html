@@ -23,13 +23,15 @@
     {% endblock head %} 
 </head>
 
+{% block body %}
 <body>
-    {% block nav %}
+{% endblock body %}
+{% block nav %}
     <nav class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
         <div class="container">
             <div class="navbar-translate">
-                <a class="navbar-brand" href="https://demos.creative-tim.com/material-kit/index.html">
-                  {{ admin.blog_title|default('Blog Title') }} </a>
+                <a class="navbar-brand" href="#">
+                {{ admin.blog_title|default('Blog Title') }} </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="navbar-toggler-icon"></span>
@@ -39,11 +41,13 @@
             </div>
             <div class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
+                    {% block me %}
                     <li class="nav-item">
-                        <a class="nav-link" href="#about" onclick="scrollToDownload()">
+                        <a class="nav-link" href="about#" onclick="scrollToDownload()">
                             <i class="material-icons">person</i> About Me
                         </a>
                     </li> 
+                    {% endblock me %}
                     <li class="dropdown nav-item">
                         <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
                             <i class="material-icons">apps</i> Components
@@ -76,8 +80,8 @@
             </div>
         </div>
     </nav>
-    {% endblock nav %}
-{% block index %}
+{% endblock nav %}
+{% block page %}
     <div class="page-header header-filter" data-parallax="true" style="background-image: url({{ url_for('static', filename='img/profile_city.jpg') }})">
         <div class="container">
             <div class="row">
@@ -93,8 +97,6 @@
             </div>
         </div>
     </div>
-{% endblock index %}   
-{% block page %}
     <div class="main main-raised">
         <div class="container">
             <div class="section text-center">
@@ -109,8 +111,8 @@
                     {% if current_user.is_authenticated %}
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true"
-                               aria-expanded="false">
+                            aria-haspopup="true"
+                            aria-expanded="false">
                                 New <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -121,8 +123,8 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true"
-                               aria-expanded="false">
+                            aria-haspopup="true"
+                            aria-expanded="false">
                                 Manage <span class="caret"></span>
                                 {% if unread_comments %}
                                     <span class="badge badge-success">new</span>
