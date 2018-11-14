@@ -27,7 +27,7 @@ MarkupSafe = "==1.0"
 SQLAlchemy = "==1.2.11"
 Werkzeug = "==0.14.1"
 python-dotenv = "*"
-bootstrap-flask = "*"
+bootstrap-flask = "==1.0"
 flask-ckeditor = "*"
 hues = "*"
 flask-login = "*"
@@ -44,6 +44,7 @@ flask-bootstrap = "*"
 "autopep8" = "*"
 sentry-sdk = {version = "==0.5.1", extras = ["flask"]}
 requests = "*"
+flask-whooshee = "*"
 
 [dev-packages]
 selenium = "*"

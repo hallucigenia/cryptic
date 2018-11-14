@@ -1,111 +1,235 @@
 {% from 'bootstrap/nav.html' import render_nav_item %}
+{% from 'bootstrap/form.html' import render_form %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     {% block head %}
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>{% block title %}{% endblock title %} - {{ admin.blog_title|default('Blog Title') }}</title>
-        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-        <link rel="stylesheet"
-              href="{{ url_for('static', filename='css/%s.min.css' % request.cookies.get('theme', 'perfect_blue')) }}"
-              type="text/css">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
-    {% endblock head %}
+        <meta charset="utf-8" />
+        <link rel="apple-touch-icon" sizes="76x76" href="{{ url_for('static', filename='img/apple-icon.png') }}">
+        <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        
+        <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+        <!--     Fonts and icons     -->
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+        <!-- CSS Files -->
+        <link href="{{ url_for('static', filename='css/material-kit.css') }}"  rel="stylesheet" />
+        <!-- CSS Just for demo purpose, don't include it in your project -->
+        <link href="{{ url_for('static', filename='demo/demo.css') }}"  rel="stylesheet" />
+        <!-- Material Kit CSS -->
+        <link href="{{ url_for('static', filename='css/material-kit.css') }}" rel="stylesheet" />  
+        <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet" /> 
+    {% endblock head %} 
 </head>
-<body>
-{% block nav %}
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url_for('blog.index') }}">{{ admin.blog_title }}</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
-                    aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarColor01">
-                <ul class="navbar-nav mr-auto">
-                    {{ render_nav_item('blog.index', 'Home') }}
-                    {{ render_nav_item('blog.about', 'About') }}
-                </ul>
 
-                <ul class="nav navbar-nav navbar-right">
+{% block body %}
+<body>
+{% endblock body %}
+{% block nav %}
+    <nav class="navbar navbar-transparent navbar-color-on-scroll fixed-top navbar-expand-lg" color-on-scroll="100" id="sectionsNav">
+        <div class="container">
+            <div class="navbar-translate">
+                <a class="navbar-brand" href={{url_for('blog.index') }}>
+                {{ admin.blog_title|default('Blog Title') }} </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+            <div class="collapse navbar-collapse">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
                     {% if current_user.is_authenticated %}
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true"
-                               aria-expanded="false">
-                                New <span class="caret"></span>
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ url_for('admin.new_post') }}">Post</a>
-                                <a class="dropdown-item" href="{{ url_for('admin.new_category') }}">Category</a>
-                                <a class="dropdown-item" href="{{ url_for('admin.new_link') }}">Link</a>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
-                               aria-haspopup="true"
-                               aria-expanded="false">
-                                Manage <span class="caret"></span>
-                                {% if unread_comments %}
-                                    <span class="badge badge-success">new</span>
-                                {% endif %}
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ url_for('admin.manage_post') }}">Post</a>
-                                <a class="dropdown-item" href="{{ url_for('admin.manage_category') }}">Category</a>
-                                <a class="dropdown-item" href="{{ url_for('admin.manage_comment') }}">
-                                    Comment
-                                    {% if unread_comments %}
-                                        <span class="badge badge-success">{{ unread_comments }}</span>
-                                    {% endif %}
-                                </a>
-                                <a class="dropdown-item" href="{{ url_for('admin.manage_link') }}">Link</a>
-                            </div>
-                        </li>
-                        {{ render_nav_item('admin.settings', 'Settings') }}
+                    <a href="{{ url_for('auth.logout', next=request.full_path) }}"  class="nav-link">
+                        <i class="material-icons">content_paste</i> Logout
+                    </a>
+                    {% else %}
+                    {% block me %}
+                    <li class="nav-item">
+                        <a class="nav-link"  data-toggle="modal" data-target="#loginModal">
+                            <i class="material-icons">assignment</i> Login 
+                        </a>
+                    </li> 
+                    {% endblock me %}
                     {% endif %}
+                    </li>
+                    <form class="form-inline ml-auto">
+                        <div class="form-group no-border">
+                            <input type="text" class="form-control" placeholder="Search">
+                        </div>
+                        <button type="submit" class="btn btn-white btn-just-icon btn-round">
+                            <i class="material-icons">search</i>
+                        </button>
+                    </form>
                 </ul>
+                
             </div>
         </div>
     </nav>
 {% endblock nav %}
-
-<main class="container">
-    {% for message in get_flashed_messages(with_categories=True) %}
-        <div class="alert alert-{{ message[0] }}" role="alert">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            {{ message[1] }}
+{% block page %}
+    <div class="page-header header-filter" data-parallax="true" style="background-image: url({{ url_for('static', filename='img/profile_city.jpg') }})">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1 class="title">{{ admin.blog_title|default('Blog Title') }}</h1>
+                    <h4 class="text-muted">&nbsp;{{ admin.blog_sub_title|default('Blog Subtitle') }}</h4>
+                    <br>
+                    <br>
+                    <a href="/about" target="_blank" class="btn btn-primary btn-raised btn-lg">
+                        <i class="fas fa-book-reader"></i> About Me
+                    </a>
+                </div>
+            </div>
         </div>
-    {% endfor %}
-    {% block content %}{% endblock content %}
+    </div>
+    <div class="main main-raised">
+        <div class="container" id="topic">
+            <div class="section text-center">
+                {% for message in get_flashed_messages(with_categories=True) %}
+                    <div class="alert alert-{{ message[0] }}" role="alert">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        {{ message[1] }}
+                    </div>
+                {% endfor %}
+                <ul class="nav navbar-nav navbar-right">
+                {% block content %}{% endblock content %}
+                </ul>
+            </div>
+        </div>
+    </div>
+{% endblock page %}
+<main class="container">   
     {% block footer %}
-        <footer>
-            <p class="float-left">
-                <small> &copy; 2018 <a href="http://fansly.top" title="Written by Fansly">Fansly</a> -
-                    <a href="https://github.com/hallucigenia" title="Fork me on Github">Github</a> -
-                    <a href="https://github.com/hallucigenia/crypticlog" title="This Crypticlog project">Crypticlog</a>
-                </small>
-            </p>
-            <p class="float-right">
-                <small>
-                    {% if current_user.is_authenticated %}
-                        <a href="{{ url_for('auth.logout', next=request.full_path) }}">Logout</a>
-                    {% else %}
-                        <a href="{{ url_for('auth.login', next=request.full_path) }}">Login</a>
-                    {% endif %}
-                </small>
-            </p>
+        <footer class="footer footer-default">
+            <div class="container">
+                <nav class="float-left">
+                    <ul>
+                        <li class="nav-item">
+                            <a class="nav-link" data-placement="top" data-toggle="tooltip" href="https://twitter.com/_fancyan" target="_blank" title="Follow me on Twitter">
+                                <i class="fa fa-2x fa-twitter"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-placement="top" data-toggle="tooltip" href="https://github.com/hallucigenia" target="_blank" title="Like me on Github">
+                                <i class="fa fa-2x fa-github"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-placement="top" data-toggle="tooltip" href="https://www.instagram.com/monophoton/" target="_blank" title="Follow me on Instagram">
+                                <i class="fa fa-2x fa-instagram"></i>
+                            </a>
+                        </li>
+                        <small>
+                            {% if current_user.is_authenticated %}
+                                <a href="{{ url_for('auth.logout', next=request.full_path) }}">Logout</a>
+                            {% else %}
+                                <a href="{{ url_for('auth.login', next=request.full_path) }}">Login</a>
+                            {% endif %}
+                        </small>
+                    </ul>
+                </nav>
+                <div class="copyright float-right">
+                    &copy;
+                    <script>
+                        document.write(new Date().getFullYear())
+                    </script>, made with <i class="material-icons">favorite</i> by
+                    <a href="https://www.creative-tim.com" target="_blank">Fancy</a>.
+                </div>
+            </div>
         </footer>
     {% endblock footer %}
 </main>
 
 {% block scripts %}
-    <script type="text/javascript" src="{{ url_for('static', filename='js/jquery-3.2.1.slim.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
-    <script type="text/javascript" src="{{ url_for('static', filename='js/script.js') }}"></script>
-    {{ moment.include_moment(local_js=url_for('static', filename='js/moment-with-locales.min.js')) }}
+    <!--   Core JS Files   -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/core/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/core/popper.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/core/bootstrap-material-design.min.js') }}"></script>
+    {{ moment.include_moment(local_js=url_for('static', filename='js/plugins/moment.min.js')) }} 
+    <!--	Plugin for the Datepicker, full documentation here: https://github.com/Eonasdan/bootstrap-datetimepicker -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/bootstrap-datetimepicker.js') }}"></script>
+    <!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/nouislider.min.js') }}"></script>
+    <!--	Plugin for Sharrre btn -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/jquery.sharrre.js') }}"></script>
+    <!-- Control Center for Material Kit: parallax effects, scripts for the example pages etc -->
+    <script type="text/javascript" src="{{ url_for('static', filename='js/material-kit.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/bootstrap-datetimepicker.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/nouislider.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/jquery.sharrre.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/plugins/moment.min.js') }}"></script>
 {% endblock %}
 </body>
 </html>
+
+
+<div class="modal fade" id="loginModal" tabindex="-1" role="">
+    <div class="modal-dialog modal-login" role="document">
+        <div class="modal-content">
+            <div class="card card-signup card-plain">
+                <div class="modal-header">
+                    <div class="card-header card-header-primary text-center">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="material-icons">clear</i></button>
+                        <h4 class="card-title">Log in</h4>
+                        <div class="social-line">
+                            <a href="#pablo" class="btn btn-just-icon btn-link">
+                                <i class="fa fa-facebook-square"></i>
+                            </a>
+                            <a href="#pablo" class="btn btn-just-icon btn-link">
+                                <i class="fa fa-twitter"></i>
+                            </a>
+                            <a href="#pablo" class="btn btn-just-icon btn-link">
+                                <i class="fa fa-google-plus"></i>
+                            <div class="ripple-container"></div></a>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-body">
+                    <form class="form" method="POST" action="">
+                        <p class="description text-center">Or Be Classical</p>
+                        <div class="card-body">
+
+                            <div class="form-group bmd-form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">face</i>
+                                    </span>
+                                    <input type="text" class="form-control" placeholder="First Name...">
+                                </div>
+                            </div>
+
+                            <div class="form-group bmd-form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">email</i>
+                                    </span>
+                                    </form>
+                                    <input type="text" class="form-control" placeholder="Email...">
+                                </div>
+                            </div>
+
+                            <div class="form-group bmd-form-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon">
+                                        <i class="material-icons">lock_outline</i>
+                                    </span>
+                                    <input type="password" placeholder="Password..." class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer justify-content-center">
+                    <a href="#pablo" class="btn btn-primary btn-link btn-wd btn-lg">Get Started</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

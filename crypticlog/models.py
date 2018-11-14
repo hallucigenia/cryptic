@@ -6,7 +6,7 @@ from datetime import datetime
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 
-from crypticlog.extensions import db
+from crypticlog.extensions import db, whooshee
 
 
 class Admin(db.Model, UserMixin):
@@ -40,6 +40,7 @@ class Category(db.Model):
         db.session.commit()
 
 
+@whooshee.register_model('title', 'body')
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(60))
