@@ -7,7 +7,7 @@ from wtforms import StringField, SubmitField, SelectField, TextAreaField, Valida
     BooleanField, PasswordField
 from wtforms.validators import DataRequired, Email, Length, Optional, URL
 
-from crypticlog.models import Category
+from cryptic.models import Category
 
 
 class LoginForm(FlaskForm):

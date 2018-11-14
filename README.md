@@ -1,1 +1,1 @@
-# crypticlog
+# cryptic

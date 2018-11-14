@@ -27,15 +27,15 @@ class BaseConfig(object):
     MAIL_USE_SSL = True
     MAIL_USERNAME = os.getenv('MAIL_USERNAME')
     MAIL_PASSWORD = os.getenv('MAIL_PASSWORD')
-    MAIL_DEFAULT_SENDER = ('Crypticlog Admin', MAIL_USERNAME)
+    MAIL_DEFAULT_SENDER = ('Cryptic Admin', MAIL_USERNAME)
 
-    CRYPTICLOG_EMAIL = os.getenv('CRYPTICLOG_EMAIL')
-    CRYPTICLOG_POST_PER_PAGE = 10
-    CRYPTICLOG_MANAGE_POST_PER_PAGE = 15
-    CRYPTICLOG_COMMENT_PER_PAGE = 15
+    CRYPTIC_EMAIL = os.getenv('CRYPTIC_EMAIL')
+    CRYPTIC_POST_PER_PAGE = 10
+    CRYPTIC_MANAGE_POST_PER_PAGE = 15
+    CRYPTIC_COMMENT_PER_PAGE = 15
     # ('theme name', 'display name')
-    CRYPTICLOG_THEMES = {'perfect_blue': 'Perfect Blue', 'black_swan': 'Black Swan'}
-    CRYPTICLOG_SLOW_QUERY_THRESHOLD = 1
+    CRYPTIC_THEMES = {'perfect_blue': 'Perfect Blue', 'black_swan': 'Black Swan'}
+    CRYPTIC_SLOW_QUERY_THRESHOLD = 1
 
 
 class DevelopmentConfig(BaseConfig):

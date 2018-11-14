@@ -3,8 +3,8 @@ __author__ = 'fansly'
 
 from flask import url_for
 
-from crypticlog.models import Post, Category, Link, Comment
-from crypticlog.extensions import db
+from cryptic.models import Post, Category, Link, Comment
+from cryptic.extensions import db
 
 from tests.base import BaseTestCase
 
@@ -213,7 +213,7 @@ class AdminTestCase(BaseTestCase):
 
         response = self.client.post(url_for('admin.edit_link', link_id=1), data=dict(
             name='Github',
-            url='https://github.com/crypticlog'
+            url='https://github.com/cryptic'
         ), follow_redirects=True)
         data = response.get_data(as_text=True)
         self.assertIn('Link updated.', data)

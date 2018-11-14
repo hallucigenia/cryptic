@@ -5,9 +5,9 @@ import unittest
 
 from flask import url_for
 
-from crypticlog import create_app
-from crypticlog import db
-from crypticlog import Admin
+from cryptic import create_app
+from cryptic import db
+from cryptic import Admin
 
 class BaseTestCase(unittest.TestCase):
 

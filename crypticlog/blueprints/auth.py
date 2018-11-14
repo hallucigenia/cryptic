@@ -4,9 +4,9 @@ __author__ = 'fansly'
 from flask import Blueprint, render_template, flash, redirect, url_for, json
 from flask_login import login_user, logout_user, login_required, current_user
 
-from crypticlog.models import Admin
-from crypticlog.forms import LoginForm
-from crypticlog.utils import redirect_back
+from cryptic.models import Admin
+from cryptic.forms import LoginForm
+from cryptic.utils import redirect_back
 
 auth_bp = Blueprint('auth', __name__)
 

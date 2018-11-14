@@ -6,8 +6,8 @@ import random
 from faker import Faker
 from sqlalchemy.exc import IntegrityError
 
-from crypticlog.models import Admin, Category, Post, Comment, Link
-from crypticlog.extensions import db
+from cryptic.models import Admin, Category, Post, Comment, Link
+from cryptic.extensions import db
 
 fake = Faker()
 
@@ -15,7 +15,7 @@ fake = Faker()
 def fake_admin():
     admin = Admin(
         username='admin',
-        blog_title='Crypticlog',
+        blog_title='cryptic',
         blog_sub_title="No, I'm the real thing.",
         name='Mima Kirigoe',
         about='Um, l, Mima Kirigoe, had a fun time as a member of CHAM...'

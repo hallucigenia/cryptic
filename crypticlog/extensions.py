@@ -25,7 +25,7 @@ whooshee = Whooshee()
 
 @login_manager.user_loader
 def load_user(user_id):
-    from crypticlog.models import Admin
+    from cryptic.models import Admin
     user = Admin.query.get(int(user_id))
     return user
 

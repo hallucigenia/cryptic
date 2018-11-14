@@ -4,11 +4,11 @@ __author__ = 'fansly'
 from flask import render_template, Blueprint, request, abort, make_response, flash, redirect, url_for, current_app
 from flask_login import current_user
 
-from crypticlog.models import Comment, Post, Category
-from crypticlog.extensions import db
-from crypticlog.forms import AdminCommentForm, CommentForm
-from crypticlog.emails import send_new_comment_email, send_new_reply_email
-from crypticlog.utils import redirect_back
+from cryptic.models import Comment, Post, Category
+from cryptic.extensions import db
+from cryptic.forms import AdminCommentForm, CommentForm
+from cryptic.emails import send_new_comment_email, send_new_reply_email
+from cryptic.utils import redirect_back
 
 blog_bp = Blueprint('blog', __name__)
 
@@ -16,7 +16,7 @@ blog_bp = Blueprint('blog', __name__)
 @blog_bp.route('/')
 def index():
     page = request.args.get('page', 1, type=int)  # git current page during searching string
-    per_page = current_app.config['CRYPTICLOG_POST_PER_PAGE']  # page count
+    per_page = current_app.config['CRYPTIC_POST_PER_PAGE']  # page count
     pagination = Post.query.order_by(Post.timestamp.desc()).paginate(page, per_page=per_page)  # paging objects
     posts = pagination.items  # current page's record list
     return render_template('blog/index.html', pagination=pagination, posts=posts)
@@ -31,7 +31,7 @@ def about():
 def show_category(category_id):
     category = Category.query.get_or_404(category_id)
     page = request.args.get('page', 1, type=int)
-    per_page = current_app.config['CRYPTICLOG_POST_PER_PAGE']
+    per_page = current_app.config['CRYPTIC_POST_PER_PAGE']
     pagination = Post.query.with_parent(category).order_by(Post.timestamp.desc()).paginate(page, per_page=per_page)
     posts = pagination.items
     return render_template('blog/category.html', category=category, pagination=pagination, posts=posts)
@@ -41,7 +41,7 @@ def show_category(category_id):
 def show_post(post_id):
     post = Post.query.get_or_404(post_id)
     page = request.args.get('page', 1, type=int)
-    per_page = current_app.config['CRYPTICLOG_COMMENT_PER_PAGE']
+    per_page = current_app.config['CRYPTIC_COMMENT_PER_PAGE']
     pagination = Comment.query.with_parent(post).filter_by(
         reviewed=True).order_by(
         Comment.timestamp.asc()).paginate(
@@ -52,7 +52,7 @@ def show_post(post_id):
     if current_user.is_authenticated:  # if current user logined, use the administrator form
         form = AdminCommentForm()
         form.author.data = current_user.name
-        form.email.data = current_app.config['CRYPTICLOG_EMAIL']
+        form.email.data = current_app.config['CRYPTIC_EMAIL']
         form.site.data = url_for('.index')
         from_admin = True
         reviewed = True
@@ -102,7 +102,7 @@ def reply_comment(comment_id):
 
 @blog_bp.route('/change-theme/<theme_name>')
 def change_theme(theme_name):
-    if theme_name not in current_app.config['CRYPTICLOG_THEMES'].keys():
+    if theme_name not in current_app.config['CRYPTIC_THEMES'].keys():
         abort(404)
 
     response = make_response(redirect_back())

@@ -1,2 +1,2 @@
-FLASK_APP=crypticlog
+FLASK_APP=cryptic
 FLASK_ENV=production

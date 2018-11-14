@@ -3,8 +3,8 @@ __author__ = 'fansly'
 
 from flask import url_for
 
-from crypticlog.models import Post, Category, Link, Comment
-from crypticlog.extensions import db
+from cryptic.models import Post, Category, Link, Comment
+from cryptic.extensions import db
 
 from tests.base import BaseTestCase
 
