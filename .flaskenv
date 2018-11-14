@@ -1,2 +1,2 @@
-FLASK_APP=cryptic
-FLASK_ENV=production
+FLASK_APP=cryptic/__init__.py
+FLASK_ENV=development
