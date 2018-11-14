@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}500 Error{% endblock %}
+
+{% block page %}
+    <div class="page-header header-filter" data-parallax="true" style="background-image: url({{ url_for('static', filename='img/profile_city.jpg') }})">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8">
+                    <h1 class="title">500 Error</h1>
+                    <h4 class="text-muted">&nbsp;Internal Server Error</h4>
+                    <br>
+                    <br>
+                    <a onclick="history.back()" target="_blank" class="btn btn-primary btn-raised btn-lg">
+                        <i class="fas fa-book-reader"></i> Send Me back
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}{% endblock %}

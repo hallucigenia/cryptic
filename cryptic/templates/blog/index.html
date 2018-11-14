@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% from 'bootstrap/pagination.html' import render_pager %}
+{% from "macros.html" import pager %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-sm-8">
+            {% include 'blog/_posts.html' %}
+            {% if posts %}
+               {{ pager(pagination) }}
+            {% endif %}
+        </div>
+        <div class="col-sm-4 sidebar">
+            {% include 'blog/_sidebar.html' %}
+        </div>
+    </div>
+{% endblock %}
