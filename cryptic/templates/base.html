@@ -73,6 +73,7 @@
     </nav>
 {% endblock nav %}
 {% block page %}
+    {% block initial %}
     <div class="page-header header-filter" data-parallax="true" style="background-image: url({{ url_for('static', filename='img/profile_city.jpg') }})">
         <div class="container">
             <div class="row">
@@ -88,6 +89,7 @@
             </div>
         </div>
     </div>
+    {% endblock initial %}
     <div class="main main-raised">
         <div class="container" id="topic">
             <div class="section text-center">
@@ -139,7 +141,7 @@
                     <script>
                         document.write(new Date().getFullYear())
                     </script>, made with <i class="material-icons">favorite</i> by
-                    <a href="https://www.creative-tim.com" target="_blank">Fancy</a>.
+                    <a href="{{ url_for('blog.about') }}" target="_blank">Fancy</a>.
                 </div>
             </div>
         </footer>

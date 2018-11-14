@@ -1,2 +1,2 @@
-FLASK_APP=cryptic/__init__.py
+FLASK_APP=cryptic
 FLASK_ENV=development
