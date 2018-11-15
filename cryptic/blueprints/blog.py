@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 __author__ = 'fansly'
 
-from flask import render_template, Blueprint, request, abort, make_response, flash, redirect, url_for, current_app
+from flask import Flask, render_template, Blueprint, request, abort, make_response, flash, redirect, url_for, current_app, send_from_directory
 from flask_login import current_user
 
 from cryptic.models import Comment, Post, Category
@@ -10,8 +10,12 @@ from cryptic.forms import AdminCommentForm, CommentForm
 from cryptic.emails import send_new_comment_email, send_new_reply_email
 from cryptic.utils import redirect_back
 
-blog_bp = Blueprint('blog', __name__)
-
+blog_bp = Blueprint('blog', __name__, static_folder='../static')
+ 
+@blog_bp.route('/robots.txt')
+@blog_bp.route('/sitemap.xml')
+def static_from_root():
+    return send_from_directory(blog_bp.static_folder, request.path[1:])
 
 @blog_bp.route('/')
 def index():
@@ -122,11 +126,3 @@ def search():
     pagination = Post.query.whooshee_search(q).paginate(page, per_page)
     results = pagination.items
     return render_template('blog/search.html', q=q, results=results, pagination=pagination, category=category)
-
-from flask import Flask, request, send_from_directory
-
-@blog_bp.route('/robots.txt')
-@blog_bp.route('/sitemap.xml')
-def static_from_root():
-    return send_from_directory(app.static_folder, request.path[1:])
-    

@@ -218,10 +218,3 @@ def register_request_handlers(app):
                     % (q.duration, q.context, q.statement)
                 )
         return response
-
-
-if __name__ == "__main__":
-    app = create_app()
-
-
-
