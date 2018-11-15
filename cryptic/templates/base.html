@@ -127,6 +127,11 @@
                                 <i class="fa fa-2x fa-instagram"></i>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" data-placement="top" data-toggle="tooltip" href="https://github.com/hallucigenia/cryptic" target="_blank" title="Star this project in Github">
+                                <i class="fa fa-code-branch"></i>
+                            </a>
+                        </li>
                         <small>
                             {% if current_user.is_authenticated %}
                                 <a href="{{ url_for('auth.logout', next=request.full_path) }}">Logout</a>
@@ -196,7 +201,6 @@
                     <form class="form" method="POST" action="">
                         <p class="description text-center">Or Be Classical</p>
                         <div class="card-body">
-
                             <div class="form-group bmd-form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon">
