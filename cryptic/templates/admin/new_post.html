@@ -1,12 +1,25 @@
 {% extends 'base.html' %}
 {% from 'bootstrap/form.html' import render_form %}
 
+{% block body %}
+<body class="profile-page sidebar-collapse">
+{% endblock %}
+
 {% block title %}New Post{% endblock %}
 
-{% block content %}
-    <div class="page-header">
-        <h1>New Post</h1>
+{% block initial %}
+<div class="page-header header-filter" data-parallax="true" style="background-image: url({{ url_for('static', filename='img/profile_city.jpg') }})">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h1 class="title">New Post</h1>
+            </div>
+        </div>
     </div>
+</div>
+{% endblock initial %}
+
+{% block content %}
     {{ render_form(form) }}
 {% endblock %}
 
