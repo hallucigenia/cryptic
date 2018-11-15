@@ -1,17 +1,47 @@
 {% from 'bootstrap/nav.html' import render_nav_item %}
 {% from 'bootstrap/form.html' import render_form %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cmn-Hans">
 
 <head>
     {% block head %}
         <title>{% block title %}{% endblock title %} - {{ admin.blog_title|default('Blog Title') }}</title>
         <meta charset="utf-8" />
-        <link rel="apple-touch-icon" sizes="76x76" href="{{ url_for('static', filename='img/apple-icon.png') }}">
-        <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+        <meta http-equiv="cache-control" content="no-cache">
+        <meta http-equiv="Cache-Control" content="no-siteapp" />
+        <meta http-equiv="expires" content="Wed 2 January 2019 05:20 GMT" />
+        <meta name="description" content="我热爱编程，这是我的个人博客"/>
+        <meta name="keywords" content="博客,维基小百科,方方哥,科技,计算机,编程,blog,python,fancy "/>
+        <meta name="fansly" content="air.bylive@gmail.com"/>
+        <meta name="robots" content="index,follow"/>
         <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
+        <meta name="copyright" content="Fancy">
+        <meta name="revisit-after" content="2 days" >
+        <meta name="renderer" content="webkit">
+        <meta name="apple-mobile-web-app-title" content="方方哥的Blog">
+        <meta name="apple-mobile-web-app-capable" content="yes"/>
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+        <meta name="format-detection" content="telphone=no, email=no"/>
+        <link rel="apple-touch-icon-precomposed" href="{{ url_for('static', filename='img/apple-touch-icon-57x57-precomposed.png') }}"/>
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="{{ url_for('static', filename='img/apple-touch-icon-114x114-precomposed.png') }}"/>
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{ url_for('static', filename='img/apple-touch-icon-144x144-precomposed.png') }}"/>
+        <link rel="apple-touch-icon-precomposed" sizes="180x180" href="{{ url_for('static', filename='img/retinahd_icon.png') }}">
+        <link rel="apple-touch-startup-image" href="{{ url_for('static', filename='img/launch6plus.png') }}" media="(device-width: 414px)">
+        <meta name="theme-color" content="#9c27b0">
+        <meta name="HandheldFriendly" content="true">
+        <meta name="MobileOptimized" content="320">
+        <meta name="screen-orientation" content="portrait">
+        <meta name="x5-orientation" content="portrait">
+        <meta name="full-screen" content="yes">
+        <meta name="x5-fullscreen" content="true">
+        <meta name="browsermode" content="application">
+        <meta name="x5-page-mode" content="app">
+        <meta name="msapplication-tap-highlight" content="no">
+        <meta name="msapplication-TileColor" content="#9c27b0"/>
+        <meta name="msapplication-TileImage" content="{{ url_for('static', filename='img/favicon.png') }}"/>      
+        <link rel="apple-touch-icon" sizes="76x76" href="{{ url_for('static', filename='img/apple-icon.png') }}">
+        <link rel="icon" href="{{ url_for('static', filename='img/favicon.png') }}">
         <!--     Fonts and icons     -->
         <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
