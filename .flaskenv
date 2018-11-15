@@ -1,2 +1,2 @@
 FLASK_APP=cryptic
-FLASK_ENV=development
+FLASK_ENV=production
