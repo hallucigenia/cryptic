@@ -1,16 +1,29 @@
 {% extends 'base.html' %}
 {% from 'bootstrap/form.html' import render_form %}
 
+{% block body %}
+<body class="profile-page sidebar-collapse">
+{% endblock %}
+
 {% block title %}Manage Categories{% endblock %}
 
-{% block content %}
-    <div class="page-header">
-        <h1>Categories
-            <small class="text-muted">{{ categories|length }}</small>
-            <span class="float-right"><a class="btn btn-primary btn-sm"
-                                         href="{{ url_for('.new_category') }}">New Category</a></span>
-        </h1>
+{% block initial %}
+<div class="page-header header-filter" data-parallax="true" style="background-image: url({{ url_for('static', filename='img/profile_city.jpg') }})">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h1 class="title">Categories</h1>
+                <br>
+                <a href="{{ url_for('.new_category') }}" target="_blank" class="btn btn-primary btn-raised btn-lg">
+                    <i class="fas fa-book-reader"></i> New Category
+                </a>
+            </div>
+        </div>
     </div>
+</div>
+{% endblock initial %}
+
+{% block content %}
     {% if categories %}
         <table class="table table-striped">
             <thead>
