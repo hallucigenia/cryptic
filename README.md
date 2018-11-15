@@ -1,7 +1,8 @@
 # cryptic
 
 ---
-一个基于Flask的博客,实例网站Demo: https://www.fancysly.com
+一个基于Flask的博客, 基于Bootstrap4 
+Material Design风格实例网站Demo: https://www.fancysly.com
 
 安装 Installation
 ```
