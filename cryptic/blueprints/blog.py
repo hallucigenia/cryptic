@@ -122,3 +122,11 @@ def search():
     pagination = Post.query.whooshee_search(q).paginate(page, per_page)
     results = pagination.items
     return render_template('blog/search.html', q=q, results=results, pagination=pagination, category=category)
+
+from flask import Flask, request, send_from_directory
+
+@blog_bp.route('/robots.txt')
+@blog_bp.route('/sitemap.xml')
+def static_from_root():
+    return send_from_directory(app.static_folder, request.path[1:])
+    

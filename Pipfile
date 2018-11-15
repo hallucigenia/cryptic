@@ -45,6 +45,8 @@ flask-bootstrap = "*"
 sentry-sdk = {version = "==0.5.1", extras = ["flask"]}
 requests = "*"
 flask-whooshee = "*"
+flask-sitemap = "*"
+sphinx = "*"
 
 [dev-packages]
 selenium = "*"
