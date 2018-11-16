@@ -47,6 +47,9 @@ requests = "*"
 flask-whooshee = "*"
 flask-sitemap = "*"
 sphinx = "*"
+markdown = "*"
+bleach = "*"
+flask-pagedown = "*"
 
 [dev-packages]
 selenium = "*"
