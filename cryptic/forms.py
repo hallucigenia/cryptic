@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 __author__ = 'fansly'
 
-from flask_ckeditor import CKEditorField
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, SelectField, TextAreaField, ValidationError, HiddenField, \
     BooleanField, PasswordField
@@ -21,20 +20,16 @@ class SettingForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired(), Length(1, 70)])
     blog_title = StringField('Blog Title', validators=[DataRequired(), Length(1, 60)])
     blog_sub_title = StringField('Blog Sub Title', validators=[DataRequired(), Length(1, 100)])
-    about = CKEditorField('About Page', validators=[DataRequired()])
+    about = TextAreaField('About Page', validators=[DataRequired()])
     submit = SubmitField()
-
 
 class PostForm(FlaskForm):
-    title = StringField('Title', validators=[DataRequired(), Length(1, 60)])
+    title = StringField('Title', [DataRequired(), Length(max=255)])
     category = SelectField('Category', coerce=int, default=1)
-    body = CKEditorField('Body', validators=[DataRequired()])
-    submit = SubmitField()
+    body = TextAreaField('Content', [DataRequired()])
 
-    def __init__(self, *args, **kwargs):
-        super(PostForm, self).__init__(*args, **kwargs)
-        self.category.choices = [(category.id, category.name)
-                                 for category in Category.query.order_by(Category.name).all()]
+    def __init__(self):
+        super(PostForm, self).__init__()
 
 
 class CategoryForm(FlaskForm):

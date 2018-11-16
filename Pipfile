@@ -50,6 +50,7 @@ sphinx = "*"
 markdown = "*"
 bleach = "*"
 flask-pagedown = "*"
+pymysql = "*"
 
 [dev-packages]
 selenium = "*"

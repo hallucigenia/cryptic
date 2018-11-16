@@ -59,23 +59,25 @@ def new_post():
         return redirect(url_for('blog.show_post', post_id=post.id))
     return render_template('admin/new_post.html', form=form)
 
-
-@admin_bp.route('/post/<int:post_id>/edit', methods=['GET', 'POST'])
 @login_required
+@admin_bp.route('/post/<int:post_id>/edit', methods=['GET', 'POST'])
 def edit_post(post_id):
+
     form = PostForm()
-    post = Post.query.get_or_404(post_id)
     if form.validate_on_submit():
         post.title = form.title.data
         post.body = form.body.data
         post.category = Category.query.get(form.category.data)
         db.session.commit()
-        flash('Post updated.', 'success')
+        flash('Edit Saved.', category='success')
         return redirect(url_for('blog.show_post', post_id=post.id))
+
     form.title.data = post.title
     form.body.data = post.body
     form.category.data = post.category_id
     return render_template('admin/edit_post.html', form=form)
+
+
 
 
 @admin_bp.route('/post/<int:post_id>/delete', methods=['POST'])

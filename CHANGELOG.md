@@ -6,11 +6,25 @@ Demo: https://fancysly.com
 
 ## [Unreleased]
 ### Changed
-- Title Color change back to write
-- humans.txt
+- None
 
 ### Known Bug
 - the login model without entrance
+
+
+## [0.1.3] - 2018-11-15
+### Added
+- Title Color change back to write
+- humans.txt
+
+### Changed
+- Changed CKEditor4 to Flask-PageDown
+- the Admin tansform bug
+- the text always in center
+
+### Removed
+- the icon to like me in github
+
 
 ## [0.1.2] - 2018-11-15
 ### Added

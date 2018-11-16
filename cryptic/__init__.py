@@ -14,7 +14,7 @@ from flask_wtf.csrf import CSRFError
 from cryptic.blueprints.admin import admin_bp
 from cryptic.blueprints.auth import auth_bp
 from cryptic.blueprints.blog import blog_bp
-from cryptic.extensions import bootstrap, db, login_manager, csrf, ckeditor, whooshee, mail, moment, toolbar, migrate
+from cryptic.extensions import bootstrap, db, login_manager, csrf, whooshee, mail, moment, toolbar, migrate
 from cryptic.models import Admin, Post, Category, Comment, Link
 from cryptic.settings import config
 
@@ -79,7 +79,6 @@ def register_extensions(app):
     db.init_app(app)
     login_manager.init_app(app)
     csrf.init_app(app)
-    ckeditor.init_app(app)
     mail.init_app(app)
     moment.init_app(app)
     toolbar.init_app(app)
