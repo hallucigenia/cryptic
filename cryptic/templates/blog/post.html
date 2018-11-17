@@ -2,6 +2,12 @@
 {% from 'bootstrap/form.html' import render_form %}
 {% from 'bootstrap/pagination.html' import render_pagination %}
 
+{% block head %}
+    {{ super() }}
+    <link href="{{ url_for('static', filename='editormd/css/editormd.preview.min.css') }}" rel="stylesheet" />  
+    <link href="{{ url_for('static', filename='editormd/css/editormd.css') }}" rel="stylesheet" /> 
+{% endblock %}
+
 {% block body %}
 <body class="profile-page sidebar-collapse">
 {% endblock %}
@@ -34,8 +40,10 @@
 {% endblock initial %}
 {% block content %}
     <div class="row">
-        <div class="col-sm-8">
-            {{ post.body|safe }}
+        <div class="col-sm-8" id="doc-content">
+            <div class="content" id="content">
+                {{ post.body_html| safe }}
+            </div>
             <hr>
             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target=".postLinkModal">Share
             </button>
@@ -145,4 +153,14 @@
             {% include "blog/_sidebar.html" %}
         </div>
     </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script type="text/javascript" src="{{ url_for('static', filename='editormd/lib/marked.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='editormd/lib/prettify.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='editormd/editormd.min.js') }}"></script>
+    <script type="text/javascript">
+        editormd.markdownToHTML("content");
+    </script>
 {% endblock %}
