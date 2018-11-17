@@ -57,18 +57,15 @@
             <div id="editormd" class="form-control">
                 {{ form.body(style="display:none;") }}
             </div>
-            
             <input class="btn btn-primary" type="submit" value="Submit">
         </form>
 {% endblock %}
 
 {% block scripts %}
     {{ super() }}
-    <script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static',filename='editormd/editormd.min.js') }}"></script>
     <script type="text/javascript">
         var testEditor;
-
         $(function () {
             testEditor = editormd("editormd", {
                 width: "100%",
