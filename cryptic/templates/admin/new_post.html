@@ -26,7 +26,6 @@
 {% endblock initial %}
 
 {% block content %}
-    <link rel="stylesheet" href="{{ url_for('static',filename='editormd/css/editormd.css') }}"/>
         <form method="POST" action="{{ url_for('.new_post') }}">
             {{ form.hidden_tag() }}
             <div class="form-group">
@@ -40,6 +39,12 @@
             </div>
             <div class="form-group">
                 {{ form.category.label }}
+                {% if form.category.errors %}
+                    {% for e in form.category.errors %}
+                        <p class="help-block">{{ e }}</p>
+                    {% endfor %}
+                {% endif %}
+                {{ form.category(class_='form-control') }}
             </div>
             <div class="form-group">
                 {{ form.body.label }}
@@ -48,10 +53,11 @@
                         <p class="help-block">{{ e }}</p>
                     {% endfor %}
                 {% endif %}
-                <div id="editormd" class="form-control">
-                    {{ form.body(style="display:none;") }}
-                </div>
             </div>
+            <div id="editormd" class="form-control">
+                {{ form.body(style="display:none;") }}
+            </div>
+            
             <input class="btn btn-primary" type="submit" value="Submit">
         </form>
 {% endblock %}
@@ -66,7 +72,7 @@
         $(function () {
             testEditor = editormd("editormd", {
                 width: "100%",
-                height: "100%",
+                height: 640,
                 syncScrolling: "single",
                 path: "{{ url_for('static',filename='editormd/lib/') }}"
             });

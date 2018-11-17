@@ -26,10 +26,12 @@ class SettingForm(FlaskForm):
 class PostForm(FlaskForm):
     title = StringField('Title', [DataRequired(), Length(max=255)])
     category = SelectField('Category', coerce=int, default=1)
-    body = TextAreaField('Content', [DataRequired()])
+    body = TextAreaField('Body', [DataRequired()])
 
-    def __init__(self):
-        super(PostForm, self).__init__()
+    def __init__(self, *args, **kwargs):
+        super(PostForm, self).__init__(*args, **kwargs)
+        self.category.choices = [(category.id, category.name)
+                                for category in Category.query.order_by(Category.name).all()]
 
 
 class CategoryForm(FlaskForm):

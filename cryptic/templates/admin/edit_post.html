@@ -26,18 +26,56 @@
 {% endblock initial %}
 
 {% block content %}
- <form class="form" method="POST">
-    {{ form.hidden_tag() }}
-    {{ wtf.form_field(form.title) }}
-    {{ wtf.form_field(form.category) }}
-    {{ wtf.form_field(form.body) }}
-    {{ wtf.form_field(form.submit) }}
- </form>
+        <form method="POST"}}">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.title.label }}
+                {% if form.title.errors %}
+                    {% for e in form.title.errors %}
+                        <p class="help-block">{{ e }}</p>
+                    {% endfor %}
+                {% endif %}
+                {{ form.title(class_='form-control') }}
+            </div>
+            <div class="form-group">
+                {{ form.category.label }}
+                {% if form.category.errors %}
+                    {% for e in form.category.errors %}
+                        <p class="help-block">{{ e }}</p>
+                    {% endfor %}
+                {% endif %}
+                {{ form.category(class_='form-control') }}
+            </div>
+            <div class="form-group">
+                {{ form.body.label }}
+                {% if form.body.errors %}
+                    {% for e in form.body.errors %}
+                        <p class="help-block">{{ e }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div id="editormd" class="form-control">
+                {{ form.body(style="display:none;") }}
+            </div>
+            
+            <input class="btn btn-primary" type="submit" value="Submit">
+        </form>
 {% endblock %}
 
 {% block scripts %}
     {{ super() }}
     <script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static',filename='editormd/editormd.min.js') }}"></script>
-    <script>editormd.init({ selector:'textarea' });</script>
+    <script type="text/javascript">
+        var testEditor;
+
+        $(function () {
+            testEditor = editormd("editormd", {
+                width: "100%",
+                height: 640,
+                syncScrolling: "single",
+                path: "{{ url_for('static',filename='editormd/lib/') }}"
+            });
+        });
+    </script>
 {% endblock %}
