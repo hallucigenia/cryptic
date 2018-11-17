@@ -10,20 +10,22 @@ Demo: https://fancysly.com
 
 ### Known Bug
 - the login model without entrance
+- cannot rander picture
+- without human.txt
 
-
-## [0.1.3] - 2018-11-15
+## [0.1.3] - 2018-11-17
 ### Added
 - Title Color change back to write
-- humans.txt
+- editor.md
 
 ### Changed
-- Changed CKEditor4 to Flask-PageDown
+- Changed CKEditor4 to Markdown Editor
 - the Admin tansform bug
 - the text always in center
 
 ### Removed
 - the icon to like me in github
+- the flask-Ckeditor
 
 
 ## [0.1.2] - 2018-11-15
