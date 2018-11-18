@@ -6,7 +6,7 @@ Demo: https://fancysly.com
 
 ## [Unreleased]
 ### Changed
-- None
+- Add edit category.html page
 
 ### Known Bug
 - the login model without entrance
