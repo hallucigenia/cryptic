@@ -3,7 +3,6 @@ __author__ = 'fansly'
 
 from flask import Flask, render_template, Blueprint, request, abort, make_response, flash, redirect, url_for, current_app, send_from_directory
 from flask_login import current_user
-
 from cryptic.models import Comment, Post, Category
 from cryptic.extensions import db
 from cryptic.forms import AdminCommentForm, CommentForm

@@ -8,3 +8,4 @@ if os.path.exists(dotenv_path):
 from cryptic import create_app
 
 app = create_app('production')
+
