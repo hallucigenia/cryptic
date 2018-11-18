@@ -4,6 +4,7 @@
 
 {% block head %}
     {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static',filename='editormd/examples/css/style.css') }}"/>
     <link rel="stylesheet" href="{{ url_for('static',filename='editormd/css/editormd.css') }}"/>
 {% endblock %}
     
@@ -54,7 +55,7 @@
                     {% endfor %}
                 {% endif %}
             </div>
-            <div id="editormd" class="form-control">
+            <div id="test-editormd" class="form-control">
                 {{ form.body(style="display:none;") }}
             </div>
             <input class="btn btn-primary" type="submit" value="Submit">
@@ -63,15 +64,18 @@
 
 {% block scripts %}
     {{ super() }}
+    <script src="{{ url_for('static',filename='editormd//examples/js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static',filename='editormd/editormd.min.js') }}"></script>
     <script type="text/javascript">
-        var testEditor;
-        $(function () {
-            testEditor = editormd("editormd", {
-                width: "100%",
-                height: 640,
-                syncScrolling: "single",
-                path: "{{ url_for('static',filename='editormd/lib/') }}"
+        $(function() {       
+            var testEditor = editormd("test-editormd", {
+                width             : "100%",
+                height            : 500,
+                markdown          : "",
+                path              : "{{ url_for('static',filename='editormd/lib/') }}",
+                imageUpload       : true,
+                imageFormats      : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                imageUploadURL    : "/upload",
             });
         });
     </script>

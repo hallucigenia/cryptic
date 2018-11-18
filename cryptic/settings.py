@@ -37,6 +37,9 @@ class BaseConfig(object):
     CRYPTIC_THEMES = {'perfect_blue': 'Perfect Blue', 'black_swan': 'Black Swan'}
     CRYPTIC_SLOW_QUERY_THRESHOLD = 1
 
+    UPLOADED_PHOTOS_DEST = '/uploads/photos'
+    UPLOADED_PHOTO_DEST = '/uploads/photos'
+
 
 class DevelopmentConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = prefix + os.path.join(basedir, 'data-dev.db')

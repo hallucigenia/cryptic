@@ -10,11 +10,12 @@ from flask import Flask, render_template, request
 from flask_login import current_user
 from flask_sqlalchemy import get_debug_queries
 from flask_wtf.csrf import CSRFError
+from flask_uploads import configure_uploads
 
 from cryptic.blueprints.admin import admin_bp
 from cryptic.blueprints.auth import auth_bp
 from cryptic.blueprints.blog import blog_bp
-from cryptic.extensions import bootstrap, db, login_manager, csrf, whooshee, mail, moment, toolbar, migrate
+from cryptic.extensions import bootstrap, db, login_manager, csrf, whooshee, mail, moment, toolbar, migrate, photos
 from cryptic.models import Admin, Post, Category, Comment, Link
 from cryptic.settings import config
 
@@ -84,6 +85,8 @@ def register_extensions(app):
     toolbar.init_app(app)
     whooshee.init_app(app)
     migrate.init_app(app, db)
+    configure_uploads(app, photos)
+
 
 def register_blueprints(app):
     app.register_blueprint(blog_bp)

@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 __author__ = 'fansly'
 
-from flask import render_template, flash, redirect, url_for, request, current_app, Blueprint
+from flask import render_template, flash, redirect, url_for, request, current_app, Blueprint, jsonify
 from flask_login import login_required, current_user
 
 from cryptic.forms import SettingForm, CategoryForm, LinkForm, PostForm
 from cryptic.models import Post, Comment, Link, Category
 from cryptic.utils import redirect_back
-from cryptic.extensions import db
+from cryptic.extensions import db, photos
 
 admin_bp = Blueprint('admin', __name__)
 
@@ -57,7 +57,23 @@ def new_post():
         db.session.commit()
         flash('Post created.', 'success')
         return redirect(url_for('blog.show_post', post_id=post.id))
+
     return render_template('admin/new_post.html', form=form)
+
+def upload():
+    if request.method == 'POST':
+        filename = photos.save(request.files['photos'])
+        file_url = photos.url(filename)
+
+        return jsonify({
+            success : 1,
+            message : "提示的信息，上传成功或上传失败及错误信息等。",
+            url     : file_url
+        })
+
+    return none
+    
+
 
 
 @admin_bp.route('/post/<int:post_id>/edit', methods=['GET', 'POST'])

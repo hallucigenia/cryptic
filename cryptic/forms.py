@@ -8,7 +8,6 @@ from wtforms.validators import DataRequired, Email, Length, Optional, URL
 
 from cryptic.models import Category
 
-
 class LoginForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(1, 20)])
     password = PasswordField('Password', validators=[DataRequired(), Length(1, 128)])
