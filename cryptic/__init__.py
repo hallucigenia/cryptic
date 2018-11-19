@@ -14,7 +14,7 @@ from flask_wtf.csrf import CSRFError
 from cryptic.blueprints.admin import admin_bp
 from cryptic.blueprints.auth import auth_bp
 from cryptic.blueprints.blog import blog_bp
-from cryptic.extensions import bootstrap, db, login_manager, csrf, whooshee, mail, moment, toolbar, migrate
+from cryptic.extensions import bootstrap, db, login_manager, csrf, whooshee, mail, moment, toolbar, migrate, qiniu_store
 from cryptic.models import Admin, Post, Category, Comment, Link
 from cryptic.settings import config
 
@@ -84,6 +84,7 @@ def register_extensions(app):
     toolbar.init_app(app)
     whooshee.init_app(app)
     migrate.init_app(app, db)
+    qiniu_store.init_app(app)
 
 def register_blueprints(app):
     app.register_blueprint(blog_bp)

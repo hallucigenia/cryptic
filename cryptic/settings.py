@@ -4,6 +4,7 @@ __author__ = 'fansly'
 import os
 import sys
 
+
 prefix = 'mysql+pymysql://root:950419@localhost/'
 
 class BaseConfig(object):
@@ -29,6 +30,10 @@ class BaseConfig(object):
     CRYPTIC_THEMES = {'perfect_blue': 'Perfect Blue', 'black_swan': 'Black Swan'}
     CRYPTIC_SLOW_QUERY_THRESHOLD = 1
 
+    QINIU_ACCESS_KEY = os.getenv('ACCESS_KEY')
+    QINIU_SECRET_KEY = os.getenv('SECRET_KEY')
+    QINIU_BUCKET_NAME = 'pre-nectarian'
+    QINIU_BUCKET_DOMAIN = 'pifzqj4jd.bkt.clouddn.com'
 
 class DevelopmentConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:950419@localhost/tea'
@@ -41,7 +46,7 @@ class TestingConfig(BaseConfig):
 
 
 class ProductionConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', prefix + 'tea.db')
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', prefix + 'tea')
 
 
 config = {

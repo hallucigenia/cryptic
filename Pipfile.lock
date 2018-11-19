@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "5f6993ed3cc403bb0aafae0af23451b0c73b5fb08b073ba98459ae6a1495d469"
+            "sha256": "ad70d39be3dd03fb4074fc6cdb46ada26ac64ed0433f384477e3e8e7a40932e1"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -302,6 +302,14 @@
             "index": "pypi",
             "version": "==0.2.2"
         },
+        "flask-qiniustorage": {
+            "hashes": [
+                "sha256:56836e640f18e00384dd82e918550cb1572f7c42afbc4cf1ae39c70988523474",
+                "sha256:ef0fea59a9df2bf004ac562f9296a4d6e13fc5cc3ad5f8ef029f692e4f503e4e"
+            ],
+            "index": "pypi",
+            "version": "==0.9.5"
+        },
         "flask-script": {
             "hashes": [
                 "sha256:6425963d91054cfcc185807141c7314a9c5ad46325911bd24dcb489bd0161c65"
@@ -552,6 +560,12 @@
             ],
             "version": "==3.13"
         },
+        "qiniu": {
+            "hashes": [
+                "sha256:91acaefef8eb0bc33fae78ef7e9b1da85115d77cfbe2612999dc1d10c1e17378"
+            ],
+            "version": "==7.2.2"
+        },
         "requests": {
             "hashes": [
                 "sha256:65b3a120e4329e33c9889db89c80976c5272f56ea92d3e74da8a463992e3ff54",
@@ -617,11 +631,11 @@
         },
         "unidecode": {
             "hashes": [
-                "sha256:72f49d3729f3d8f5799f710b97c1451c5163102e76d64d20e170aedbbd923582",
-                "sha256:8c33dd588e0c9bc22a76eaa0c715a5434851f726131bd44a6c26471746efabf5"
+                "sha256:092cdf7ad9d1052c50313426a625b717dab52f7ac58f859e09ea020953b1ad8f",
+                "sha256:8b85354be8fd0c0e10adbf0675f6dc2310e56fda43fa8fe049123b6c475e52fb"
             ],
             "index": "pypi",
-            "version": "==1.0.22"
+            "version": "==1.0.23"
         },
         "urllib3": {
             "hashes": [

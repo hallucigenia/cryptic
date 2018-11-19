@@ -51,6 +51,7 @@ markdown = "*"
 bleach = "*"
 flask-pagedown = "*"
 pymysql = "*"
+flask-qiniustorage = "*"
 
 [dev-packages]
 selenium = "*"

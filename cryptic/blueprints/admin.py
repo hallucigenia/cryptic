@@ -235,3 +235,26 @@ def delete_link(link_id):
     db.session.commit()
     flash('Link deleted.', 'success')
     return redirect(url_for('.manage_link'))
+
+@admin_bp.route('/save')
+@login_required
+def save():
+    data = 'data to save'
+    filename = 'filename'
+    ret, info = qiniu_store.save(data, filename)
+    return str(ret)
+
+# 删除七牛空间中的文件
+@admin_bp.route('/delete')
+@login_required
+def delete():
+    filename = 'filename'
+    ret, info = qiniu_store.delete(filename)
+    return str(ret)
+
+# 根据文件名获取对应的公开URL
+@admin_bp.route('/url')
+@login_required
+def url():
+    filename = 'filename'
+    return qiniu_store.url(filename)

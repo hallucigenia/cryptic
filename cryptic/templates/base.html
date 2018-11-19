@@ -124,13 +124,13 @@
     <div class="main main-raised">
         <div class="container" id="topic">
             <div class="section">
-                {% block content %}{% endblock content %}
                 {% for message in get_flashed_messages(with_categories=True) %}
                     <div class="alert alert-{{ message[0] }}" role="alert">
                         <button type="button" class="close" data-dismiss="alert">&times;</button>
                         {{ message[1] }}
                     </div>
                 {% endfor %}
+                {% block content %}{% endblock content %}
                 <ul class="nav navbar-nav navbar-right"> 
                 </ul>
             </div>

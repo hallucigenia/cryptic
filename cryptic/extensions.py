@@ -10,6 +10,7 @@ from flask_wtf import CSRFProtect
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_migrate import Migrate
 from flask_whooshee import Whooshee
+from flask_qiniustorage import Qiniu
 
 bootstrap = Bootstrap()
 db = SQLAlchemy()
@@ -20,6 +21,8 @@ moment = Moment()
 toolbar = DebugToolbarExtension()
 migrate = Migrate()
 whooshee = Whooshee()
+qiniu_store = Qiniu()
+
 
 @login_manager.user_loader
 def load_user(user_id):
