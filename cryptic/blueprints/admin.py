@@ -3,6 +3,7 @@ __author__ = 'fansly'
 
 from flask import render_template, flash, redirect, url_for, request, current_app, Blueprint
 from flask_login import login_required, current_user
+from flask_dropzone import random_filename
 
 from cryptic.forms import SettingForm, CategoryForm, LinkForm, PostForm
 from cryptic.models import Post, Comment, Link, Category
@@ -236,15 +237,14 @@ def delete_link(link_id):
     flash('Link deleted.', 'success')
     return redirect(url_for('.manage_link'))
 
-@admin_bp.route('/save')
+@admin_bp.route('/save', methods=['GET', 'POST'])
 @login_required
 def save():
-    data = 'data to save'
-    filename = 'filename'
+    data = request.file.get('editormd-image-file')
+    filename = random_filename(f.filemame)
     ret, info = qiniu_store.save(data, filename)
-    return str(ret)
+    return redirect(url_for('.url'))
 
-# 删除七牛空间中的文件
 @admin_bp.route('/delete')
 @login_required
 def delete():
@@ -252,9 +252,11 @@ def delete():
     ret, info = qiniu_store.delete(filename)
     return str(ret)
 
-# 根据文件名获取对应的公开URL
-@admin_bp.route('/url')
+@admin_bp.route('/url', methods=['GET', 'POST'])
 @login_required
-def url():
-    filename = 'filename'
-    return qiniu_store.url(filename)
+def url(filename):
+    return jsonify({
+    success : 1, 
+    message : "上传成功！",
+    url: qiniu_store.url(filename)
+})
