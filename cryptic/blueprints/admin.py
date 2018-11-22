@@ -49,8 +49,9 @@ def new_post():
     if form.validate_on_submit():
         title = form.title.data
         body = form.body.data
+        body_html = request.form['fancy-editormd-html-code']
         category = Category.query.get(form.category.data)
-        post = Post(title=title, body=body, category=category)
+        post = Post(title=title, body=body, body_html = body_html, category=category)
         # same with:
         # category_id = form.category.data
         # post = Post(title=title, body=body, category_id=category_id)
@@ -69,12 +70,14 @@ def edit_post(post_id):
     if form.validate_on_submit():
         post.title = form.title.data
         post.body = form.body.data
+        post.body_html = request.form['fancy-editormd-html-code']
         post.category = Category.query.get(form.category.data)
         db.session.commit()
         flash('Post updated.', 'success')
         return redirect(url_for('blog.show_post', post_id=post.id))
     form.title.data = post.title
     form.body.data = post.body
+    form.body_html.data = post.body_html
     form.category.data = post.category_id
     return render_template('admin/edit_post.html', form=form)
 

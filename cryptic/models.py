@@ -41,7 +41,7 @@ class Category(db.Model):
         db.session.commit()
 
 
-@whooshee.register_model('title', 'body')
+@whooshee.register_model('title', 'body_html')
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(60))

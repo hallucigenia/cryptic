@@ -22,7 +22,7 @@
 {% endblock initial %}
 
 {% block content %}
-        <form method="GET" "POST" action="{{ url_for('.new_post') }}">
+        <form method="POST" action="{{ url_for('.new_post') }}">
             {{ form.hidden_tag() }}
             <div class="form-group">
                 {{ form.title.label }}
@@ -50,7 +50,7 @@
                     {% endfor %}
                 {% endif %}
             </div>
-            <div id="my-editormd" class="editormd">
+            <div id="fancy-editormd" class="editormd">
                 {{ form.body(style="display:none;") }}
             </div>
             {{ form.submit(class='btn btn-primary') }}
@@ -62,7 +62,7 @@
     <script src="{{ url_for('static',filename='editormd/editormd.min.js') }}"></script>
     <script type="text/javascript">
         $(function () {
-            editormd("my-editormd", {
+            editormd("fancy-editormd", {
                 height: 640,
                 syncScrolling: "single",
                 imageUpload : true,
@@ -70,6 +70,20 @@
                 imageUploadURL : "{{ url_for('.save') }}",
                 path: "{{ url_for('static',filename='editormd/lib/') }}",
                 saveHTMLToTextarea : true
+                //markdown: "",
+                //codeFold: true,
+                //syncScrolling : false,
+                //searchReplace: true,
+                //watch : false,                // 关闭实时预览
+                //htmlDecode: "style,script,iframe|on*",            // 开启 HTML 标签解析，为了安全性，默认不开启    
+                //toolbar  : false,             //关闭工具栏
+                //previewCodeHighlight : false, // 关闭预览 HTML 的代码块高亮，默认开启
+                //emoji: true,
+                //taskList: true,
+                //tocm: true,         // Using [TOCM]
+                //tex: true,                   // 开启科学公式TeX语言支持，默认关闭
+                //flowChart: true,             // 开启流程图支持，默认关闭
+                //sequenceDiagram: true,
             });
         });
     </script>

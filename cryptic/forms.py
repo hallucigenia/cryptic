@@ -26,6 +26,7 @@ class PostForm(FlaskForm):
     title = StringField('Title', [DataRequired(), Length(max=255)])
     category = SelectField('Category', coerce=int, default=1)
     body = TextAreaField('Body', validators=[DataRequired()])
+    body_html = HiddenField()
     submit = SubmitField()
     def __init__(self, *args, **kwargs):
         super(PostForm, self).__init__(*args, **kwargs)
