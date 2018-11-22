@@ -54,7 +54,7 @@
                     {% endfor %}
                 {% endif %}
             </div>
-            <div id="editormd" class="form-control">
+            <div id="fancy-editormd" class="form-control">
                 {{ form.body(style="display:none;") }}
             </div>
             {{ form.submit(class='btn btn-primary') }}
@@ -62,19 +62,20 @@
 {% endblock %}
 
 {% block scripts %}
-    {{ super() }}
     <script src="{{ url_for('static',filename='js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static',filename='editormd/editormd.min.js') }}"></script>
     <script type="text/javascript">
-        var testEditor;
-
         $(function () {
-            testEditor = editormd("editormd", {
-                width: "100%",
+            editormd("fancy-editormd", {
                 height: 640,
                 syncScrolling: "single",
-                path: "{{ url_for('static',filename='editormd/lib/') }}"
+                imageUpload : true,
+                imageFormats : [ "jpg", "jpeg", "gif", "png", "bmp", "webp" ],
+                imageUploadURL : "{{ url_for('.save') }}",
+                path: "{{ url_for('static',filename='editormd/lib/') }}",
+                saveHTMLToTextarea : true
             });
         });
     </script>
+    {{ super() }}
 {% endblock %}
