@@ -1,13 +1,16 @@
 # -*- coding: utf-8 -*-
 __author__ = 'fansly'
 
-from flask import render_template, flash, redirect, url_for, request, current_app, Blueprint
+import os, base64
+from datetime import datetime
+from flask import render_template, flash, redirect, url_for, request, current_app, Blueprint, jsonify
 from flask_login import login_required, current_user
+from flask_dropzone import random_filename
 
 from cryptic.forms import SettingForm, CategoryForm, LinkForm, PostForm
 from cryptic.models import Post, Comment, Link, Category
 from cryptic.utils import redirect_back
-from cryptic.extensions import db
+from cryptic.extensions import db, csrf, qiniu_store
 
 admin_bp = Blueprint('admin', __name__)
 
@@ -48,8 +51,9 @@ def new_post():
     if form.validate_on_submit():
         title = form.title.data
         body = form.body.data
+        body_html = request.form['fancy-editormd-html-code']
         category = Category.query.get(form.category.data)
-        post = Post(title=title, body=body, category=category)
+        post = Post(title=title, body=body, body_html = body_html, category=category)
         # same with:
         # category_id = form.category.data
         # post = Post(title=title, body=body, category_id=category_id)
@@ -68,12 +72,14 @@ def edit_post(post_id):
     if form.validate_on_submit():
         post.title = form.title.data
         post.body = form.body.data
+        post.body_html = request.form['fancy-editormd-html-code']
         post.category = Category.query.get(form.category.data)
         db.session.commit()
         flash('Post updated.', 'success')
         return redirect(url_for('blog.show_post', post_id=post.id))
     form.title.data = post.title
     form.body.data = post.body
+    form.body_html.data = post.body_html
     form.category.data = post.category_id
     return render_template('admin/edit_post.html', form=form)
 
@@ -235,3 +241,43 @@ def delete_link(link_id):
     db.session.commit()
     flash('Link deleted.', 'success')
     return redirect(url_for('.manage_link'))
+
+@admin_bp.route('/save', methods=['GET', 'POST'])
+@login_required
+def save():
+    data = request.file.get('editormd-image-file')
+    filename = random_filename(f.filemame)
+    ret, info = qiniu_store.save(data, filename)
+    return redirect(url_for('.url'))
+
+@admin_bp.route('/delete')
+@login_required
+def delete():
+    filename = 'filename'
+    ret, info = qiniu_store.delete(filename)
+    return str(ret)
+
+
+@admin_bp.route('/upload/',methods=['POST'])
+@login_required
+@csrf.exempt
+def upload():
+    data=request.files['editormd-image-file']
+    if not data:
+        res={
+            'success':0,
+            'message':u'图片入牛失败，请重试'
+        }
+    else:
+        ex=os.path.splitext(data.filename)[1]
+        filename=datetime.now().strftime('%Y%m%d%H%M%S')+ex
+        file = data.stream.read()
+        file = base64.b64encode(file)
+        #data.save(filename)
+        qiniu_store.save(file, filename)
+        res={
+            'success':1,
+            'message':u'图片入牛成功么么哒',
+            'url':qiniu_store.url(filename)
+        }
+    return jsonify(res)

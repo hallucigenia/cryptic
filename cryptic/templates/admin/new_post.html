@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
 {% from 'bootstrap/form.html' import render_form %}
 
-{% block body %}
-<body class="profile-page sidebar-collapse">
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename='editormd/css/editormd.css') }}"/>
+    {{ super() }}
 {% endblock %}
+    
 
 {% block title %}New Post{% endblock %}
 
@@ -20,10 +22,70 @@
 {% endblock initial %}
 
 {% block content %}
-    {{ render_form(form) }}
+        <form method="POST" action="{{ url_for('.new_post') }}">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.title.label }}
+                {% if form.title.errors %}
+                    {% for e in form.title.errors %}
+                        <p class="help-block">{{ e }}</p>
+                    {% endfor %}
+                {% endif %}
+                {{ form.title(class_='form-control') }}
+            </div>
+            <div class="form-group">
+                {{ form.category.label }}
+                {% if form.category.errors %}
+                    {% for e in form.category.errors %}
+                        <p class="help-block">{{ e }}</p>
+                    {% endfor %}
+                {% endif %}
+                {{ form.category(class_='form-control') }}
+            </div>
+            <div class="form-group">
+                {{ form.body.label }}
+                {% if form.body.errors %}
+                    {% for e in form.body.errors %}
+                        <p class="help-block">{{ e }}</p>
+                    {% endfor %}
+                {% endif %}
+            </div>
+            <div id="fancy-editormd" class="editormd">
+                {{ form.body(style="display:none;") }}
+            </div>
+            {{ form.submit(class='btn btn-primary') }}
+        </form>
 {% endblock %}
 
 {% block scripts %}
+    <script src="{{ url_for('static',filename='editormd/examples/js/jquery.min.js') }}"></script>
+    <script src="{{ url_for('static',filename='editormd/editormd.min.js') }}"></script>
+    <script type="text/javascript">
+        $(function () {
+            editormd("fancy-editormd", {
+                height: 520,
+                syncScrolling: "single",
+                imageUpload : true,
+                imageFormats : [ "jpg", "jpeg", "gif", "png", "bmp", "webp" ],
+                imageUploadURL : "{{ url_for('.upload') }}",
+                path: "{{ url_for('static',filename='editormd/lib/') }}",
+                saveHTMLToTextarea : true
+                //markdown: "",
+                //codeFold: true,
+                //syncScrolling : false,
+                //searchReplace: true,
+                //watch : false,                // 关闭实时预览
+                //htmlDecode: "style,script,iframe|on*",            // 开启 HTML 标签解析，为了安全性，默认不开启    
+                //toolbar  : false,             //关闭工具栏
+                //previewCodeHighlight : false, // 关闭预览 HTML 的代码块高亮，默认开启
+                //emoji: true,
+                //taskList: true,
+                //tocm: true,         // Using [TOCM]
+                //tex: true,                   // 开启科学公式TeX语言支持，默认关闭
+                //flowChart: true,             // 开启流程图支持，默认关闭
+                //sequenceDiagram: true,
+            });
+        });
+    </script>
     {{ super() }}
-    <script type="text/javascript" src="{{ url_for('static', filename='ckeditor/ckeditor.js') }}"></script>
 {% endblock %}

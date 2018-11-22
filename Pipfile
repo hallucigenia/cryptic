@@ -50,6 +50,9 @@ sphinx = "*"
 markdown = "*"
 bleach = "*"
 flask-pagedown = "*"
+pymysql = "*"
+flask-qiniustorage = "*"
+flask-dropzone = "*"
 
 [dev-packages]
 selenium = "*"

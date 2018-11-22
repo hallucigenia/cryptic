@@ -5,7 +5,6 @@ from datetime import datetime
 
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
-
 from cryptic.extensions import db, whooshee
 
 
@@ -40,11 +39,12 @@ class Category(db.Model):
         db.session.commit()
 
 
-@whooshee.register_model('title', 'body')
+@whooshee.register_model('title', 'body_html')
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(60))
     body = db.Column(db.Text)
+    body_html = db.Column(db.Text)
     timestamp = db.Column(db.DateTime, default=datetime.utcnow, index=True)
     can_comment = db.Column(db.Boolean, default=True)
 

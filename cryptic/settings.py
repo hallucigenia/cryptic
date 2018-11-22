@@ -4,15 +4,8 @@ __author__ = 'fansly'
 import os
 import sys
 
-basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
-# SQLite URI compatible
-WIN = sys.platform.startswith('win')
-if WIN:
-    prefix = 'sqlite:///'
-else:
-    prefix = 'sqlite:////'
-
+prefix = 'mysql+pymysql://root:950419@localhost/'
 
 class BaseConfig(object):
     SECRET_KEY = os.getenv('SECRET_KEY', 'dev key')
@@ -37,19 +30,23 @@ class BaseConfig(object):
     CRYPTIC_THEMES = {'perfect_blue': 'Perfect Blue', 'black_swan': 'Black Swan'}
     CRYPTIC_SLOW_QUERY_THRESHOLD = 1
 
+    QINIU_ACCESS_KEY = os.getenv('ACCESS_KEY')
+    QINIU_SECRET_KEY = os.getenv('QINIU_KEY')
+    QINIU_BUCKET_NAME = 'pre-nectarian'
+    QINIU_BUCKET_DOMAIN = 'pijqqpnqr.bkt.clouddn.com'
 
 class DevelopmentConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI = prefix + os.path.join(basedir, 'data-dev.db')
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:950419@localhost/tea'
 
 
 class TestingConfig(BaseConfig):
     TESTING = True
     WTF_CSRF_ENABLED = False
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'  # in-memory database
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:950419@localhost/tea'  # in-memory database
 
 
 class ProductionConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', prefix + os.path.join(basedir, 'data.db'))
+    SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', prefix + 'tea')
 
 
 config = {
