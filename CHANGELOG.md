@@ -6,12 +6,30 @@ Demo: https://fancysly.com
 
 ## [Unreleased]
 ### Changed
-- Add edit category.html page
+- None
 
 ### Known Bug
 - the login model without entrance
-- cannot rander picture
 - without human.txt
+
+## [0.21] - 2018-11-22
+### Added
+- Add picture support
+- Add qiniu upload support
+- mysql database support
+- support Alembic
+
+### Changed
+- the editor.md file
+- remind not to login
+- the administrator manage entrance
+- the database model
+
+### Removed
+- elder markdown render(replaced by editor.md)
+- sqlite3 (replaced by mysql)
+- useless static folder
+
 
 ## [0.1.3] - 2018-11-17
 ### Added

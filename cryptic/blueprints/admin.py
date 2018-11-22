@@ -259,6 +259,7 @@ def delete():
 
 
 @admin_bp.route('/upload/',methods=['POST'])
+@login_required
 @csrf.exempt
 def upload():
     data=request.files['editormd-image-file']
