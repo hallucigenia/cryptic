@@ -4,7 +4,9 @@
 一个基于Flask的博客, 
 Material Design风格实例网站
 基于Bootstrap4 
+编辑器为markdown左右对照
 Demo: https://www.fancysly.com
+
 
 安装 Installation
 ```
