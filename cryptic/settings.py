@@ -31,9 +31,9 @@ class BaseConfig(object):
     CRYPTIC_SLOW_QUERY_THRESHOLD = 1
 
     QINIU_ACCESS_KEY = os.getenv('ACCESS_KEY')
-    QINIU_SECRET_KEY = os.getenv('SECRET_KEY')
+    QINIU_SECRET_KEY = os.getenv('QINIU_KEY')
     QINIU_BUCKET_NAME = 'pre-nectarian'
-    QINIU_BUCKET_DOMAIN = 'pifzqj4jd.bkt.clouddn.com'
+    QINIU_BUCKET_DOMAIN = 'pijqqpnqr.bkt.clouddn.com'
 
 class DevelopmentConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:950419@localhost/tea'

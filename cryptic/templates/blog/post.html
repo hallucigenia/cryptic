@@ -41,7 +41,7 @@
 {% block content %}
     <div class="row">
         <div class="col-sm-8" id="doc-content">
-            <div class="content" id="content">
+            <div class="content" id="fancy-content">
                 {{ post.body_html| safe }}
             </div>
             <hr>
@@ -161,6 +161,6 @@
     <script type="text/javascript" src="{{ url_for('static', filename='editormd/lib/prettify.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='editormd/editormd.min.js') }}"></script>
     <script type="text/javascript">
-        editormd.markdownToHTML("content");
+        editormd.markdownToHTML("fancy-content");
     </script>
 {% endblock %}

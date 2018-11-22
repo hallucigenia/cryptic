@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 __author__ = 'fansly'
 
-from flask import render_template, flash, redirect, url_for, request, current_app, Blueprint
+import os, base64
+from datetime import datetime
+from flask import render_template, flash, redirect, url_for, request, current_app, Blueprint, jsonify
 from flask_login import login_required, current_user
 from flask_dropzone import random_filename
 
 from cryptic.forms import SettingForm, CategoryForm, LinkForm, PostForm
 from cryptic.models import Post, Comment, Link, Category
 from cryptic.utils import redirect_back
-from cryptic.extensions import db
+from cryptic.extensions import db, csrf, qiniu_store
 
 admin_bp = Blueprint('admin', __name__)
 
@@ -255,11 +257,26 @@ def delete():
     ret, info = qiniu_store.delete(filename)
     return str(ret)
 
-@admin_bp.route('/url', methods=['GET', 'POST'])
-@login_required
-def url(filename):
-    return jsonify({
-    success : 1, 
-    message : "上传成功！",
-    url: qiniu_store.url(filename)
-})
+
+@admin_bp.route('/upload/',methods=['POST'])
+@csrf.exempt
+def upload():
+    data=request.files['editormd-image-file']
+    if not data:
+        res={
+            'success':0,
+            'message':u'图片入牛失败，请重试'
+        }
+    else:
+        ex=os.path.splitext(data.filename)[1]
+        filename=datetime.now().strftime('%Y%m%d%H%M%S')+ex
+        file = data.stream.read()
+        file = base64.b64encode(file)
+        #data.save(filename)
+        qiniu_store.save(file, filename)
+        res={
+            'success':1,
+            'message':u'图片入牛成功么么哒',
+            'url':qiniu_store.url(filename)
+        }
+    return jsonify(res)
