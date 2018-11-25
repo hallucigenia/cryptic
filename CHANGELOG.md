@@ -9,8 +9,22 @@ Demo: https://fancysly.com
 - None
 
 ### Known Bug
-- the login model without entrance
 - without human.txt
+
+
+## [0.22] - 2018-11-25
+### Added
+- None
+
+### Changed
+- zip picture
+- the concent way 'zhihu' replace the 'wechat'
+- the new post bug
+- the setting fonts color
+
+### Removed
+- remove the top login model
+
 
 ## [0.21] - 2018-11-22
 ### Added
