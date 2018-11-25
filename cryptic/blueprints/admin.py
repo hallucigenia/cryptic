@@ -5,7 +5,6 @@ import os, base64
 from datetime import datetime
 from flask import render_template, flash, redirect, url_for, request, current_app, Blueprint, jsonify
 from flask_login import login_required, current_user
-from flask_dropzone import random_filename
 
 from cryptic.forms import SettingForm, CategoryForm, LinkForm, PostForm
 from cryptic.models import Post, Comment, Link, Category

@@ -5,7 +5,10 @@
     <link rel="stylesheet" href="{{ url_for('static',filename='editormd/css/editormd.css') }}"/>
     {{ super() }}
 {% endblock %}
-    
+        
+{% block body %}
+<body class="profile-page sidebar-collapse">
+{% endblock %}
 
 {% block title %}New Post{% endblock %}
 
