@@ -9,117 +9,127 @@
 
 <url>
   <loc>https://fancysly.com/</loc>
-  <lastmod>2018-11-22T16:27:05+00:00</lastmod>
+  <lastmod>2018-11-25T11:44:49+00:00</lastmod>
   <priority>1.00</priority>
 </url>
 <url>
   <loc>https://fancysly.com/about</loc>
-  <lastmod>2018-11-22T16:27:05+00:00</lastmod>
+  <lastmod>2018-11-25T11:44:49+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
-  <loc>https://fancysly.com/post/8</loc>
-  <lastmod>2018-11-22T16:27:05+00:00</lastmod>
+  <loc>https://fancysly.com/post/9</loc>
+  <lastmod>2018-11-25T11:44:49+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://fancysly.com/category/4</loc>
-  <lastmod>2018-11-22T16:27:05+00:00</lastmod>
+  <lastmod>2018-11-25T11:44:49+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://fancysly.com/post/8</loc>
+  <lastmod>2018-11-25T11:44:49+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://fancysly.com/post/7</loc>
-  <lastmod>2018-11-22T16:27:05+00:00</lastmod>
+  <lastmod>2018-11-25T11:44:49+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://fancysly.com/post/6</loc>
-  <lastmod>2018-11-22T16:27:05+00:00</lastmod>
+  <lastmod>2018-11-25T11:44:49+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://fancysly.com/post/5</loc>
-  <lastmod>2018-11-22T16:27:05+00:00</lastmod>
+  <lastmod>2018-11-25T11:44:49+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://fancysly.com/post/4</loc>
-  <lastmod>2018-11-22T16:27:05+00:00</lastmod>
+  <lastmod>2018-11-25T11:44:49+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://fancysly.com/post/3</loc>
-  <lastmod>2018-11-22T16:27:05+00:00</lastmod>
+  <lastmod>2018-11-25T11:44:49+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://fancysly.com/category/3</loc>
-  <lastmod>2018-11-22T16:27:05+00:00</lastmod>
+  <lastmod>2018-11-25T11:44:49+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://fancysly.com/post/2</loc>
-  <lastmod>2018-11-22T16:27:05+00:00</lastmod>
+  <lastmod>2018-11-25T11:44:49+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://fancysly.com/category/2</loc>
-  <lastmod>2018-11-22T16:27:05+00:00</lastmod>
+  <lastmod>2018-11-25T11:44:49+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://fancysly.com/post/1</loc>
-  <lastmod>2018-11-22T16:27:05+00:00</lastmod>
+  <lastmod>2018-11-25T11:44:49+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://fancysly.com/category/1</loc>
-  <lastmod>2018-11-22T16:27:05+00:00</lastmod>
+  <lastmod>2018-11-25T11:44:49+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
   <loc>https://fancysly.com/?page=1</loc>
-  <lastmod>2018-11-22T16:27:05+00:00</lastmod>
+  <lastmod>2018-11-25T11:44:49+00:00</lastmod>
   <priority>0.80</priority>
 </url>
 <url>
+  <loc>https://fancysly.com/post/9?page=1</loc>
+  <lastmod>2018-11-25T11:44:49+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
   <loc>https://fancysly.com/post/8?page=1</loc>
-  <lastmod>2018-11-22T16:27:05+00:00</lastmod>
+  <lastmod>2018-11-25T11:44:49+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://fancysly.com/post/7?page=1</loc>
-  <lastmod>2018-11-22T16:27:05+00:00</lastmod>
+  <lastmod>2018-11-25T11:44:49+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://fancysly.com/post/6?page=1</loc>
-  <lastmod>2018-11-22T16:27:05+00:00</lastmod>
+  <lastmod>2018-11-25T11:44:49+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://fancysly.com/post/5?page=1</loc>
-  <lastmod>2018-11-22T16:27:05+00:00</lastmod>
+  <lastmod>2018-11-25T11:44:49+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://fancysly.com/post/4?page=1</loc>
-  <lastmod>2018-11-22T16:27:05+00:00</lastmod>
+  <lastmod>2018-11-25T11:44:49+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://fancysly.com/post/3?page=1</loc>
-  <lastmod>2018-11-22T16:27:05+00:00</lastmod>
+  <lastmod>2018-11-25T11:44:49+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://fancysly.com/post/2?page=1</loc>
-  <lastmod>2018-11-22T16:27:05+00:00</lastmod>
+  <lastmod>2018-11-25T11:44:49+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 <url>
   <loc>https://fancysly.com/post/1?page=1</loc>
-  <lastmod>2018-11-22T16:27:05+00:00</lastmod>
+  <lastmod>2018-11-25T11:44:49+00:00</lastmod>
   <priority>0.64</priority>
 </url>
 
