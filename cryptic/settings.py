@@ -2,10 +2,9 @@
 __author__ = 'fansly'
 
 import os
-import sys
-
 
 prefix = 'mysql+pymysql://root:950419@localhost/'
+
 
 class BaseConfig(object):
     SECRET_KEY = os.getenv('SECRET_KEY', 'dev key')
@@ -34,6 +33,7 @@ class BaseConfig(object):
     QINIU_SECRET_KEY = os.getenv('QINIU_KEY')
     QINIU_BUCKET_NAME = 'pre-nectarian'
     QINIU_BUCKET_DOMAIN = 'pijqqpnqr.bkt.clouddn.com'
+
 
 class DevelopmentConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:950419@localhost/tea'

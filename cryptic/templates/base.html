@@ -76,6 +76,15 @@
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item">
                     {% if current_user.is_authenticated %}
+                    <a href="{{ url_for('auth.logout', next=request.full_path) }}"  class="nav-link">
+                        <i class="material-icons">content_paste</i> Logout
+                    </a>
+                    {% else %}
+                    {% block me %}
+                    <li><a class="waves-effect waves-light btn red" href="#login">{{ _('Login') }}</a></li>
+                    {% endblock me %}
+                    {% endif %}
+                    {% if current_user.is_authenticated %}
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button"
                                aria-haspopup="true"
@@ -221,6 +230,11 @@
     <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/nouislider.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/plugins/jquery.sharrre.js') }}"></script>
     <script src="{{ url_for('static', filename='js/plugins/moment.min.js') }}"></script>
+    <script type="text/javascript">
+    var csrf_token = "{{ csrf_token() }}";
+    var login_url = "{{ url_for('auth.login') }}";
+    var logout_url = "{{ url_for('auth.logout') }}";
+    </script>
 {% endblock %}
 </body>
 </html>

@@ -36,7 +36,7 @@ def create_app(config_name=None):
     register_shell_context(app)
     register_template_context(app)
     register_request_handlers(app)
-    
+
     return app
 
 
@@ -85,6 +85,7 @@ def register_extensions(app):
     whooshee.init_app(app)
     migrate.init_app(app, db)
     qiniu_store.init_app(app)
+
 
 def register_blueprints(app):
     app.register_blueprint(blog_bp)
