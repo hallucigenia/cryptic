@@ -1,29 +1,27 @@
-{% extends 'base.html' %}
-{% from 'bootstrap/form.html' import render_form %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="utf-8"/>
+    <title>Error {{ code }} - Todoism</title>
+    <link href="{{ url_for('static', filename='css/materialize.min.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/style.css') }}" rel="stylesheet">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+</head>
 
-{% block body %}
-<body class="profile-page sidebar-collapse">
-{% endblock %}
-
-{% block title %}Login{% endblock %}
-
-{% block initial %}
-<div class="page-header header-filter" data-parallax="true" style="background-image: url({{ url_for('static', filename='img/profile_city.jpg') }})">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                <h1 class="title">Log in</h1>
-            </div>
-        </div>
+<body>
+<main>
+    <header class="center">
+        <h4 class="red-text">Todoism</h4>
+    </header>
+    <div class="row card-panel hoverable">
+        <span class="col s10">
+            <span class="active-item">{{ code }} - {{ info }}</span>
+        </span>
+        <span class="col s2">
+            <a class="button right" href="{{ url_for('home.index') }}">{{ _('Back Home') }}</a>
+        </span>
     </div>
-</div>
-{% endblock initial %}
-{% block content %}
-<div class="container h-100">
-    <div class="row h-100 justify-content-center align-items-center">
-        {{ render_form(form, extra_classes='col-6') }}
-    </div>
-</div>
-{% endblock %}
-
-{% block footer %}{% endblock %}
+</main>
+</body>
+</html>

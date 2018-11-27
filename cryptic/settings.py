@@ -39,18 +39,11 @@ class DevelopmentConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:950419@localhost/tea'
 
 
-class TestingConfig(BaseConfig):
-    TESTING = True
-    WTF_CSRF_ENABLED = False
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:950419@localhost/tea'  # in-memory database
-
-
 class ProductionConfig(BaseConfig):
     SQLALCHEMY_DATABASE_URI = os.getenv('DATABASE_URL', prefix + 'tea')
 
 
 config = {
     'development': DevelopmentConfig,
-    'testing': TestingConfig,
     'production': ProductionConfig
 }

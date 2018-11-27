@@ -81,7 +81,11 @@
                     </a>
                     {% else %}
                     {% block me %}
-                    <li><a class="waves-effect waves-light btn red" href="#login">{{ _('Login') }}</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link"  data-toggle="modal" data-target="#loginModal">
+                            <i class="material-icons">assignment</i>{{ url_for('auth._login') }}
+                        </a>
+                    </li> 
                     {% endblock me %}
                     {% endif %}
                     {% if current_user.is_authenticated %}
@@ -214,7 +218,7 @@
 
 {% block scripts %}
     <!--   Core JS Files   -->
-    <script type="text/javascript" src="{{ url_for('static', filename='js/core/jquery.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/core/jquery.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/core/popper.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='js/core/bootstrap-material-design.min.js') }}"></script>
     {{ moment.include_moment(local_js=url_for('static', filename='js/plugins/moment.min.js')) }} 
