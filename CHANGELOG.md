@@ -6,10 +6,13 @@ Demo: https://fancysly.com
 
 ## [Unreleased]
 ### Changed
-- None
+- Add Flask-Caching
+- Add Redis Cache
+
+### Removed
+- the faker model
 
 ### Known Bug
-- the login model without entrance
 - without human.txt
 
 ## [0.21] - 2018-11-22
