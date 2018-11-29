@@ -10,7 +10,7 @@ from flask_dropzone import random_filename
 from cryptic.forms import SettingForm, CategoryForm, LinkForm, PostForm
 from cryptic.models import Post, Comment, Link, Category
 from cryptic.utils import redirect_back
-from cryptic.extensions import db, csrf, qiniu_store
+from cryptic.extensions import db, csrf, qiniu_store, cache
 
 admin_bp = Blueprint('admin', __name__)
 
@@ -47,6 +47,7 @@ def manage_post():
 @admin_bp.route('/post/new', methods=['GET', 'POST'])
 @login_required
 def new_post():
+    cache.delete('view/%s' % url_for('blog.index'))
     form = PostForm()
     if form.validate_on_submit():
         title = form.title.data
@@ -67,6 +68,7 @@ def new_post():
 @admin_bp.route('/post/<int:post_id>/edit', methods=['GET', 'POST'])
 @login_required
 def edit_post(post_id):
+    cache.delete('view/%s' % url_for('blog.show_post', post_id=post_id))
     form = PostForm()
     post = Post.query.get_or_404(post_id)
     if form.validate_on_submit():
@@ -87,6 +89,7 @@ def edit_post(post_id):
 @admin_bp.route('/post/<int:post_id>/delete', methods=['POST'])
 @login_required
 def delete_post(post_id):
+    cache.delete('view/%s' % url_for('blog.index'))
     post = Post.query.get_or_404(post_id)
     db.session.delete(post)
     db.session.commit()

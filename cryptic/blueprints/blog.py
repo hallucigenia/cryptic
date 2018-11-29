@@ -12,6 +12,7 @@ from cryptic.utils import redirect_back
 
 blog_bp = Blueprint('blog', __name__, static_folder='../static')
  
+
 @blog_bp.route('/robots.txt')
 @blog_bp.route('/sitemap.xml')
 def static_from_root():
@@ -19,7 +20,7 @@ def static_from_root():
 
 
 @blog_bp.route('/')
-@cache.cached(timeout=60 * 60)
+@cache.cached(timeout= 20 * 60)
 def index():
     time.sleep(1)
     page = request.args.get('page', 1, type=int)  # git current page during searching string
@@ -30,7 +31,7 @@ def index():
 
 
 @blog_bp.route('/about')
-@cache.cached(timeout=60 * 60)
+@cache.cached(timeout=30 * 60)
 def about():
     time.sleep(1)
     return render_template('blog/about.html')
@@ -45,9 +46,16 @@ def show_category(category_id):
     posts = pagination.items
     return render_template('blog/category.html', category=category, pagination=pagination, posts=posts)
 
+def make_cache_key(*args, **kwargs):
+    """Dynamic creation the request url."""
+
+    path = request.path
+    args = str(hash(frozenset(request.args.items())))
+    return (path + args).encode('utf-8')
+
 
 @blog_bp.route('/post/<int:post_id>', methods=['GET', 'POST'])
-@cache.cached(timeout=15 * 60)
+@cache.cached(timeout=10 * 60,  key_prefix=make_cache_key)
 def show_post(post_id):
     time.sleep(1)
     post = Post.query.get_or_404(post_id)
@@ -110,15 +118,6 @@ def reply_comment(comment_id):
             author=comment.author) +
         '#comment-form')
 
-
-@blog_bp.route('/change-theme/<theme_name>')
-def change_theme(theme_name):
-    if theme_name not in current_app.config['CRYPTIC_THEMES'].keys():
-        abort(404)
-
-    response = make_response(redirect_back())
-    response.set_cookie('theme', theme_name, max_age=30 * 24 * 60 * 60)
-    return response
 
 @blog_bp.route('/search')
 def search():

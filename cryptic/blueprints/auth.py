@@ -7,12 +7,14 @@ from flask_login import login_user, logout_user, login_required, current_user
 from cryptic.models import Admin
 from cryptic.forms import LoginForm
 from cryptic.utils import redirect_back
+from cryptic.extensions import cache
 
 auth_bp = Blueprint('auth', __name__)
 
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
+    cache.delete('view/%s' % url_for('blog.index'))
     if current_user.is_authenticated:
         return redirect(url_for('blog.index'))
 
@@ -37,6 +39,7 @@ def login():
 @auth_bp.route('/logout')
 @login_required
 def logout():
+    cache.delete('view/%s' % url_for('blog.index'))
     logout_user()
     flash('Logout success.', 'info')
     return redirect_back()
