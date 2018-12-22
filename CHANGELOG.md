@@ -13,7 +13,7 @@ Demo: https://fancysly.com
 - without human.txt
 - without search entrance
 
-## [0.22] - 2018-12-22
+## [0.27] - 2018-12-22
 ### Added
 - Add Flask-Caching
 - Add Redis Cache
