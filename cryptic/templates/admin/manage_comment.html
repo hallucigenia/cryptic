@@ -15,13 +15,24 @@
                 <h1 class="title">Comments
                     <small class="text-muted">{{ pagination.total }}</small>
                 </h1>
-                <br>
-                {% for comment in comments %}
-                <a href="{{ url_for('.approve_comment', comment_id=comment.id ) }}" class="btn btn-primary btn-raised btn-lg">
-                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
-                    <i class="fas fa-book-reader"></i> Approve All
-                </a>
-                {% endfor %}
+                <ul class="nav nav-pills nav-pills-primary">
+                    <li class="nav-item">
+                        <a class="nav-link disabled" href="#">Filter </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.args.get('filter', 'all') == 'all' %}active{% endif %}"
+                        href="{{ url_for('admin.manage_comment', filter='all') }}">All</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.args.get('filter') == 'unread' %}active{% endif %}"
+                        href="{{ url_for('admin.manage_comment', filter='unread') }}">Unread {% if unread_comments %}<span
+                                class="badge badge-success">{{ unread_comments }}</span>{% endif %}</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {% if request.args.get('filter') == 'admin' %}active{% endif %}"
+                        href="{{ url_for('admin.manage_comment', filter='admin') }}">From Admin</a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -29,27 +40,7 @@
 {% endblock initial %}
 
 {% block content %}
-    <div class="page-header">
-        <ul class="nav nav-pills">
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#">Filter </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {% if request.args.get('filter', 'all') == 'all' %}active{% endif %}"
-                   href="{{ url_for('admin.manage_comment', filter='all') }}">All</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {% if request.args.get('filter') == 'unread' %}active{% endif %}"
-                   href="{{ url_for('admin.manage_comment', filter='unread') }}">Unread {% if unread_comments %}<span
-                        class="badge badge-success">{{ unread_comments }}</span>{% endif %}</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link {% if request.args.get('filter') == 'admin' %}active{% endif %}"
-                   href="{{ url_for('admin.manage_comment', filter='admin') }}">From Admin</a>
-            </li>
-        </ul>
-    </div>       
-
+      
     {% if comments %}
         <table class="table table-striped">
             <thead>

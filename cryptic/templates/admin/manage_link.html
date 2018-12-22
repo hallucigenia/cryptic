@@ -1,17 +1,32 @@
 {% extends 'base.html' %}
 {% from 'bootstrap/form.html' import render_form %}
 
+{% block body %}
+<body class="profile-page sidebar-collapse">
+{% endblock %}
+
 {% block title %}Manage Links{% endblock %}
 
-{% block content %}
-    <div class="page-header">
-        <h1>Links
-            <small class="text-muted">{{ links|length }}</small>
-            <span class="float-right">
-                <a class="btn btn-primary btn-sm" href="{{ url_for('.new_link') }}">New Link</a>
-            </span>
-        </h1>
+
+{% block initial %}
+<div class="page-header header-filter" data-parallax="true" style="background-image: url({{ url_for('static', filename='img/profile_city.jpg') }})">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h1 class="title">Links
+                    <small class="text-muted">{{ links|length }}</small>
+                </h1>
+                <br>
+                <a href="{{ url_for('.new_link') }}" class="btn btn-primary btn-raised btn-lg">
+                    <i class="fas fa-book-reader"></i> New Link
+                </a>
+            </div>
+        </div>
     </div>
+</div>
+{% endblock initial %}
+
+{% block content %}
     {% if links %}
         <table class="table table-striped">
             <thead>

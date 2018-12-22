@@ -88,6 +88,8 @@ def show_post(post_id):
         comment = Comment(
             author=author, email=email, site=site, body=body,
             from_admin=from_admin, post=post, reviewed=reviewed)
+        if comment:
+            cache.clear()
         replied_id = request.args.get('reply')
         if replied_id:  # if 'reply'exist in URL, that mains reply
             replied_comment = Comment.query.get_or_404(replied_id)
@@ -106,6 +108,7 @@ def show_post(post_id):
 
 @blog_bp.route('/reply/comment/<int:comment_id>')
 def reply_comment(comment_id):
+    cache.clear()
     comment = Comment.query.get_or_404(comment_id)
     if not comment.post.can_comment:
         flash('Comment is disabled.', 'warning')
