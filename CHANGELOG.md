@@ -6,14 +6,26 @@ Demo: https://fancysly.com
 
 ## [Unreleased]
 ### Changed
+
+### Removed
+
+### Known Bug
+- without human.txt
+- without search entrance
+
+## [0.22] - 2018-12-22
+### Added
 - Add Flask-Caching
 - Add Redis Cache
+
+### Changed
+- the post page
+- fix cache bug
+- login and logout will clean all the cache
 
 ### Removed
 - the faker model
 
-### Known Bug
-- without human.txt
 
 ## [0.21] - 2018-11-22
 ### Added

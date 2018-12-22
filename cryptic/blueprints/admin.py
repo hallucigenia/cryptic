@@ -47,7 +47,8 @@ def manage_post():
 @admin_bp.route('/post/new', methods=['GET', 'POST'])
 @login_required
 def new_post():
-    cache.delete('view/%s' % url_for('blog.index'))
+    if cache:
+        cache.delete('view/%s' % url_for('blog.index'))
     form = PostForm()
     if form.validate_on_submit():
         title = form.title.data

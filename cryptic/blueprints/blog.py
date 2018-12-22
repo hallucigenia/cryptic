@@ -55,7 +55,7 @@ def make_cache_key(*args, **kwargs):
 
 
 @blog_bp.route('/post/<int:post_id>', methods=['GET', 'POST'])
-@cache.cached(timeout=10 * 60,  key_prefix=make_cache_key)
+@cache.cached(timeout=10 * 60) 
 def show_post(post_id):
     time.sleep(1)
     post = Post.query.get_or_404(post_id)

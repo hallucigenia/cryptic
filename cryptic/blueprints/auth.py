@@ -14,7 +14,7 @@ auth_bp = Blueprint('auth', __name__)
 
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
-    cache.delete('view/%s' % url_for('blog.index'))
+    cache.clear()
     if current_user.is_authenticated:
         return redirect(url_for('blog.index'))
 
@@ -39,7 +39,7 @@ def login():
 @auth_bp.route('/logout')
 @login_required
 def logout():
-    cache.delete('view/%s' % url_for('blog.index'))
+    cache.clear()
     logout_user()
     flash('Logout success.', 'info')
     return redirect_back()
