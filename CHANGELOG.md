@@ -12,6 +12,7 @@ Demo: https://fancysly.com
 ### Known Bug
 - without human.txt
 - without search entrance
+- the comment model error
 
 ## [0.27] - 2018-12-22
 ### Added
@@ -22,6 +23,7 @@ Demo: https://fancysly.com
 - the post page
 - fix cache bug
 - login and logout will clean all the cache
+- the flask-admin version
 
 ### Removed
 - the faker model

@@ -1,14 +1,35 @@
 {% extends 'base.html' %}
 {% from 'bootstrap/pagination.html' import render_pagination %}
 
+{% block body %}
+<body class="profile-page sidebar-collapse">
+{% endblock %}
+
 {% block title %}Manage Comments{% endblock %}
+
+{% block initial %}
+<div class="page-header header-filter" data-parallax="true" style="background-image: url({{ url_for('static', filename='img/profile_city.jpg') }})">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <h1 class="title">Comments
+                    <small class="text-muted">{{ pagination.total }}</small>
+                </h1>
+                <br>
+                {% for comment in comments %}
+                <a href="{{ url_for('.approve_comment', comment_id=comment.id ) }}" class="btn btn-primary btn-raised btn-lg">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <i class="fas fa-book-reader"></i> Approve All
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock initial %}
 
 {% block content %}
     <div class="page-header">
-        <h1>Comments
-            <small class="text-muted">{{ pagination.total }}</small>
-        </h1>
-
         <ul class="nav nav-pills">
             <li class="nav-item">
                 <a class="nav-link disabled" href="#">Filter </a>
