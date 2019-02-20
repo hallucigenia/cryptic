@@ -17,8 +17,8 @@ $ pipenv shell
 $ flask run
 ```
 *首页Demo：*
-![Demo](http://pijqqpnqr.bkt.clouddn.com/fancysly/11%E2%81%8422%E2%81%8418_9.png  "Demo")
+![Demo](http://img.fansly.top/fancysly/11%E2%81%8422%E2%81%8418_9.png  "Demo")
 
 *编辑界面：*
 
-![Edit](http://pijqqpnqr.bkt.clouddn.com/fancysly/11%E2%81%8422%E2%81%8418_8-1%5C.png  "Edit")
+![Edit](http://img.fansly.top/fancysly/11%E2%81%8422%E2%81%8418_8-1%5C.png  "Edit")
