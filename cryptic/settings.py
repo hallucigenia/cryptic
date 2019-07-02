@@ -6,7 +6,7 @@ import sys
 
 
 
-prefix = 'mysql+pymysql://root:950419@localhost/'
+prefix = 'mysql+pymysql://root:123456@localhost/'
 
 class BaseConfig(object):
     SECRET_KEY = os.getenv('SECRET_KEY', 'dev key')
@@ -38,13 +38,13 @@ class BaseConfig(object):
 
 
 class DevelopmentConfig(BaseConfig):
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:950419@localhost/tea'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:123456@localhost/tea'
 
 
 class TestingConfig(BaseConfig):
     TESTING = True
     WTF_CSRF_ENABLED = False
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:950419@localhost/tea'  # in-memory database
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:123456@localhost/tea'  # in-memory database
 
 
 class ProductionConfig(BaseConfig):
